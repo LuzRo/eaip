@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <f:view contentType="text/html">
+
+        <h:head>
+            <title>EAIP ::: ESQUEMA DE ANALISIS INTEGRAL PREVENTIVO</title>
+            <!-- This line is only for ICE component, remove it if no ice component is used in this page.-->
+            <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
+            <h:outputStylesheet name="css/cssLayout.css" />
+            <h:outputStylesheet name="css/default.css" />
+            <h:outputStylesheet name="css/veeduria.css" />
+            <h:outputStylesheet name="css/inicio.css"/>
+            <h:outputStylesheet name="css/formularios.css"/>
+
+        </h:head>
+
+        <h:body>
+
+
+            <h:form>
+                <div id="superior" class="superior" >
+                    <ace:notificationPanel id="notificationPanel"
+                                           widgetVar="mensajeInicio"                                  
+                                           position="top"                                                                   
+                                           style="height: 125px; width: 98%; color: #667; background-color: #ffc; border: 2px solid #fc0;z-index: 50">
+                        <f:facet name="close">
+                            <div class="ui-icon ui-icon-closethick"></div>
+                        </f:facet>  
+                        <h:messages  showDetail="true" showSummary="false"  style="color:red;margin:8px;font-size: 15px; font-weight: bold"/>
+                    </ace:notificationPanel> 
+
+
+
+                </div>
+                <div id="izquierdo" class="izquierdo">
+
+                </div>
+                <div id="contenido"  class="contenido">
+                    <ace:panel header="Bienvenido" style="width: 300px">
+                        <h:panelGrid columns="2" >
+                            <h:outputText value="usuario" />
+                            <ace:textEntry value="#{administracionJSFBean.sysfuncionario.frnUsuario}" styleClass="txtIngreso"
+                                           />
+                            <h:outputText value="clave" />                            
+                            <ace:textEntry value="#{administracionJSFBean.sysfuncionario.frnClave}" styleClass="txtIngreso"
+                                           secret="true" />
+                        </h:panelGrid>
+                        <ace:pushButton value ="Ingresar" actionListener="#{administracionJSFBean.ingresar_ActionEvent}" 
+                                        action="#{administracionJSFBean.ingresar_Action}" />
+                    </ace:panel>
+
+                </div>
+
+            </h:form>
+
+        </h:body>
+    </f:view>
+
+
+
+
+</html>

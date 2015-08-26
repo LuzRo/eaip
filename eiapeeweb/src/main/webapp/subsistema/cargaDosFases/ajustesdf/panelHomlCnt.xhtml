@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <ui:insert name="panelHomolCnt">
+        
+        <ace:panel header="Seleccione la cuenta">
+            <ace:dataTable value="#{inconsPrespJSFBean.lstTablaPlanCG}" var="itemPCG"
+                            emptyMessage="No se encontraron datos"
+                       paginator="true"                               
+                       rowsPerPageTemplate="3"
+                       rows="25"  
+                       paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"                                       
+                       paginatorPosition="bottom"
+                       currentPageReportTemplate="(Cuenta: {startRecord} - {endRecord} de {totalRecords}, Página: {currentPage}/{totalPages})" 
+                       style="font-size: 12px"
+                       widgetVar="tblArchLog">
+                <ace:column>
+
+                    <ace:linkButton value=">>>" actionListener="#{inconsPrespJSFBean.rowDtPlanCG_AE}">
+                        <f:attribute name="tablaPlanCGSel" value="#{itemPCG}"/>
+                    </ace:linkButton>
+                </ace:column>
+                <ace:column>
+                    <f:facet name="header">
+                        <h:outputText value="Vigencia"/>
+                    </f:facet>
+                    <h:outputText value="#{itemPCG.cntPCG.pcoVigencia}" 
+                                  styleClass="outputTextContTabla #{itemPCG.claseSel}"/>
+                </ace:column>
+                <ace:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cuenta"/>
+                    </f:facet>
+                    <h:outputText value="#{itemPCG.cntPCG.pcoNumcuenta}" 
+                                  styleClass="outputTextContTabla textcolumleft #{itemPCG.claseSel}"/>
+                </ace:column>
+                <ace:column >
+                    <f:facet name="header">
+                        <h:panelGroup>
+                            <ace:textEntry value="#{inconsPrespJSFBean.strNomCuentaBusc}"
+                                           valueChangeListener="#{inconsPrespJSFBean.txtBuscarCntG_VCE}">
+                                <ace:ajax/>
+                            </ace:textEntry>
+                        </h:panelGroup>
+                    </f:facet>
+                    <h:outputText value="#{itemPCG.cntPCG.pcoNomcuenta}"
+                                  styleClass="outputTextContTabla textcolumleft #{itemPCG.claseSel}"/>
+                </ace:column>
+            </ace:dataTable>
+        </ace:panel>
+    </ui:insert>
+</html>

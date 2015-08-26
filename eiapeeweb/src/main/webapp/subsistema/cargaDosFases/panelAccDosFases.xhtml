@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <ui:insert name="panelAccCargaDosFases">
+        <h:panelGroup style="float: right;top: 1px;margin-top: 0px;left:210px;position: fixed;z-index: 15"
+            rendered="#{inconsPrespJSFBean.tablaLogInconsSel.al.avaId.ajuId.ajuId == 3 and inconsPrespJSFBean.numPanel == 4? true : false}">
+            <h:panelGrid columns="2">
+                <ace:pushButton value="Homologar" actionListener="#{inconsPrespJSFBean.btnHomologarCuanta_AE}">
+                </ace:pushButton>
+            </h:panelGrid>
+        </h:panelGroup>
+         <h:panelGroup style="float: right;top: 1px;margin-top: 0px;left:210px;position: fixed;z-index: 15"
+            rendered="#{inconsPrespJSFBean.tablaLogInconsSel.al.avaId.ajuId.ajuId == 4 and inconsPrespJSFBean.numPanel == 4? true : false}">
+            <h:panelGrid columns="2">
+                <ace:pushButton value="Agregar" actionListener="#{inconsPrespJSFBean.btnAgregarCuanta_AE}">
+                </ace:pushButton>
+            </h:panelGrid>
+        </h:panelGroup>
+        <h:panelGroup style="float: right;top: 1px;margin-top: 0px;left:210px;position: fixed;z-index: 15"
+            rendered="#{inconsPrespJSFBean.tablaLogInconsSel.al.avaId.ajuId.ajuId == 5 and inconsPrespJSFBean.numPanel == 4? true : false}">
+            <h:panelGrid columns="2">
+                <ace:pushButton value="Ajustar cod." actionListener="#{inconsPrespJSFBean.btnAjustarCodCuanta_AE}">
+                </ace:pushButton>
+            </h:panelGrid>
+        </h:panelGroup>
+
+
+    </ui:insert>
+</html>

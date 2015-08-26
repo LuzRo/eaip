@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:insert name="panelAccCargaArchivo">
+        <h:panelGrid style="float: right;top: 1px;margin-top: 0px;left:210px;position: fixed;z-index: 15">
+            <h:panelGrid columns="2">
+                
+                <h:commandButton action="#{cMPrepJSFBean.btnVolver_Action}"
+
+
+                                 title="Atrás"
+                                 styleClass="btnVolver"
+                                 actionListener="#{cMPrepJSFBean.btnVolver_ActionEvent}">
+
+                    <ace:ajax execute="@this" render="@all"/>                     
+                </h:commandButton>  
+
+            </h:panelGrid>
+        </h:panelGrid>
+
+    </ui:insert>
+</html>

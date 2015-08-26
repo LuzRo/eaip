@@ -1,0 +1,45 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+     >
+
+    <body>
+
+        
+        <ui:composition template="/base/paginamaestra.xhtml">
+
+            <ui:define name="top">
+                
+            </ui:define>
+
+            <ui:define name="left">
+                <ui:include src="leftBandEntrada.xhtml"/>
+            </ui:define>
+
+           
+
+            <ui:define name="content">
+                <h:panelGroup rendered="#{administracionJSFBean.numPanel == 1? true : false}">
+                    <ui:include src="panelNotPend.xhtml"/>
+                </h:panelGroup>
+                <!--
+                <h:graphicImage name="images/contenido/MEJOR_GESTION3.jpg"
+                                style="float: left;top: 150px; left: 2px;"
+                                width="250px"/>
+              
+                <iframe src="http://localhost/index.php" width="100%" height="100%"/>
+                  -->
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

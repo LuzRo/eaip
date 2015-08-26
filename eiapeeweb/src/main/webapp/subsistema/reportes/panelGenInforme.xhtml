@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:icecore="http://www.icefaces.org/icefaces/core"
+       xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <ui:insert name="paneContGenInforme">
+
+
+        <h:panelGroup >
+
+            <ace:panel header="Informes: #{reportesProcesosJSFBean.strTituloInf}">
+
+                <h:selectOneRadio value="#{reportesProcesosJSFBean.strNominforme}" styleClass="combomediano"
+                                  rendered="#{reportesProcesosJSFBean.numPanel == 2 ? true : false}"
+                                  layout="lineDirection" valueChangeListener="#{reportesProcesosJSFBean.ddlDetporInforme_ValueChange}">
+                    <f:selectItem itemValue="LOCALIDADES" itemLabel="Localidades"/>
+                    <f:selectItem itemValue="TERRITORIALIZACION" itemLabel="Territorialización"/>
+                    <f:ajax execute="@this" render="@all"/>
+                </h:selectOneRadio>
+                <h:selectOneRadio value="#{reportesProcesosJSFBean.strNominforme}" styleClass="combolargo"
+                                  rendered="#{reportesProcesosJSFBean.numPanel == 1 ? true : false}"
+                                  layout="lineDirection" valueChangeListener="#{reportesProcesosJSFBean.ddlDetporInforme_ValueChange}">
+                    <f:selectItem itemValue="GENERAL PRESUPUESTO" itemLabel="Generales"/>
+                    <f:selectItem itemValue="VARIABLES POR INGRESOS" itemLabel="Variables por ingresos"/>
+                    <f:ajax execute="@this" render="@all"/>
+                </h:selectOneRadio>
+                <h:selectOneRadio value="#{reportesProcesosJSFBean.strNominforme}" styleClass="combolargo"
+                                  rendered="#{reportesProcesosJSFBean.numPanel == 4 ? true : false}"
+                                  layout="lineDirection" valueChangeListener="#{reportesProcesosJSFBean.ddlDetporInforme_ValueChange}">
+                    <f:selectItem itemValue="REGISTRO CARGAS" itemLabel="Cargas del Sistema"/>
+                    <f:ajax execute="@this" render="@all"/>
+                </h:selectOneRadio>
+                <h:panelGroup>
+                    <ace:dataTable value="#{reportesProcesosJSFBean.lstTablaInformes}"
+                                   var="item"                                    
+                                   rowsPerPageTemplate="10"
+                                   rows="30"  
+                                   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"                                       
+                                   paginatorPosition="bottom"
+                                   currentPageReportTemplate="(Reportes: {startRecord} - {endRecord} de {totalRecords}, Página: {currentPage}/{totalPages})">
+                        <ace:column style=" width: 60px">                           
+                            <h:commandLink value=">>>" actionListener="#{reportesProcesosJSFBean.rowDtInformeSel_ActionEvent}"
+                                           styleClass="textcolumleft #{item.seleccionado}}"
+                                           style="font-size: 12px">
+                                <f:attribute name="tablaInformeSel" value="#{item}"/>
+                            </h:commandLink>
+                        </ace:column>
+                        <ace:column style=" width: 140px">
+                            <f:facet name="header">
+                                <h:outputText value="Informe" style="font-size: 13px"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sysInforme.infNombre}" 
+                                          styleClass="outputTextContTabla textcolumleft #{item.claseSel}"/>
+                        </ace:column>
+                        <ace:column  style=" width: 270px">
+                            <f:facet name="header">
+                                <h:outputText value="Descripción" style="font-size: 13px"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sysInforme.infDetalle}" 
+                                          styleClass="outputTextContTabla textcolumleft #{item.claseSel}"/>
+                        </ace:column>
+                    </ace:dataTable>
+                </h:panelGroup>
+
+                <h:panelGrid columns="2" rendered="#{reportesProcesosJSFBean.numPanel==1 ? true : false}">
+                    <h:panelGrid  columns="2">
+                        <f:facet name="header">
+                            <h:panelGroup style="float: left;font-weight: bold; color: black;">
+                                <h:outputText value="Variables"/>
+                            </h:panelGroup>
+                        </f:facet>
+                        <h:outputLabel value="Sector Administrativo:" />
+                        <h:selectOneMenu
+                            value="#{reportesProcesosJSFBean.intSectorAdm}"                            
+                            styleClass="combolargo"
+                            >
+                            <f:selectItems
+                                value="#{reportesProcesosJSFBean.lstSectorAdm}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="Sector Estructura:" />
+                        <h:selectOneMenu
+                            value="#{reportesProcesosJSFBean.intSectorEstr}"                            
+                            styleClass="combolargo"
+                            >
+                            <f:selectItems
+                                value="#{reportesProcesosJSFBean.lstSectorEstr}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Unidad Ejecutora:" style="font-size: 12px"/>                        
+                        <h:selectOneMenu value="#{reportesProcesosJSFBean.strUnidadEjecSel}"
+                                         styleClass="combomediano">
+                            <f:selectItems value="#{reportesProcesosJSFBean.lstItemsUnidEjecutora}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Fecha Inicio:" style="font-size: 12px"/>
+                        <ace:maskedEntry  mask="99/99/9999" value="#{reportesProcesosJSFBean.fecha_ini}" 
+                                          style="width: 120px; height: 11px; font-size: 12px; font-weight: bold">
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-6"/>
+                        </ace:maskedEntry>
+                        <h:outputText value="Fecha Fin:" style="font-size: 12px"/>
+                        <ace:maskedEntry  mask="99/99/9999" value="#{reportesProcesosJSFBean.fecha_fin}" 
+                                          style="width: 120px; height: 11px; font-size: 12px; font-weight: bold">
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-6"/>
+                        </ace:maskedEntry>
+
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGroup>
+                    <h:panelGrid columns="2" rendered="#{reportesProcesosJSFBean.numPanel==2 ? true : false}">
+                        <h:panelGrid  columns="2">
+                            <f:facet name="header">
+                                <h:panelGroup style="float: left;font-weight: bold; color: black;">
+                                    <h:outputText value="Variables"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:outputLabel value="Entidad:" style="font-size: 12px"/>
+                            <h:selectOneMenu
+                                value="#{reportesProcesosJSFBean.strEntsel}"                            
+                                styleClass="combolargo"
+                                >
+                                <f:selectItem
+                                    itemValue="95"
+                                    itemLabel="Consolidados"/>
+                            </h:selectOneMenu>
+                            <h:outputText value="Mes:" style="font-size: 12px"/>                        
+                            <h:selectOneMenu value="#{reportesProcesosJSFBean.intMes}"
+                                             styleClass="combocorto">
+                                <f:selectItem itemValue="-1" itemLabel="SELECCIONE>>"/>
+                                <f:selectItem itemValue="3" itemLabel="3"/>
+                                <f:selectItem itemValue="6" itemLabel="6"/>
+                                <f:selectItem itemValue="9" itemLabel="9"/>
+                                <f:selectItem itemValue="12" itemLabel="12"/>
+                            </h:selectOneMenu>
+                            <h:outputText value="Año:" style="font-size: 12px"/>                        
+                            <h:selectOneMenu value="#{reportesProcesosJSFBean.intAño}"
+                                             styleClass="combocorto">
+                                <f:selectItem itemValue="-1" itemLabel="SELECCIONE>>"/>
+                                <f:selectItem itemValue="2012" itemLabel="2012"/>
+                                <f:selectItem itemValue="2013" itemLabel="2013"/>
+                                <f:selectItem itemValue="2014" itemLabel="2014"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:panelGrid columns="2" rendered="#{reportesProcesosJSFBean.numPanel==3 ? true : false}">
+                        <h:panelGrid  columns="2">
+                            <f:facet name="header">
+                                <h:panelGroup style="float: left;font-weight: bold; color: black;">
+                                    <h:outputText value="Variables"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:outputLabel value="Sector Administrativo:" />
+                            <h:selectOneMenu
+                                value="#{reportesProcesosJSFBean.intSectorAdm}"                            
+                                styleClass="combolargo"
+                                >
+                                <f:selectItems
+                                    value="#{reportesProcesosJSFBean.lstSectorAdm}"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:panelGrid columns="2" rendered="#{reportesProcesosJSFBean.numPanel==4 ? true : false}">
+                        <h:panelGrid  columns="2">
+                            <f:facet name="header">
+                                <h:panelGroup style="float: left;font-weight: bold; color: black;">
+                                    <h:outputText value="Variables"/>
+                                </h:panelGroup>
+                            </f:facet>
+                            <h:outputText value="Fecha Inicio:" style="font-size: 12px"/>
+                            <ace:maskedEntry  mask="99/99/9999" value="#{reportesProcesosJSFBean.fecha_ini}" 
+                                              style="width: 120px; height: 11px; font-size: 12px; font-weight: bold">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-6"/>
+                            </ace:maskedEntry>
+                            <h:outputText value="Fecha Fin:" style="font-size: 12px"/>
+                            <ace:maskedEntry  mask="99/99/9999" value="#{reportesProcesosJSFBean.fecha_fin}" 
+                                              style="width: 120px; height: 11px; font-size: 12px; font-weight: bold">
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-6"/>
+                            </ace:maskedEntry>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:panelGroup>
+            </ace:panel>
+
+
+
+        </h:panelGroup>
+    </ui:insert>
+</html>

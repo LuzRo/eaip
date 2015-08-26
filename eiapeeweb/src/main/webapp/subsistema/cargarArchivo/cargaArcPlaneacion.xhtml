@@ -1,0 +1,78 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <ui:composition template="/base/paginamaestra.xhtml">   
+        <ui:define name="top">
+
+        </ui:define>
+        <ui:define name="left">
+
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup  >
+
+
+                <ace:panel header="Cargar archivo planeación" style="font-size: 14px; width: 90%">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Nombre Archivo" style="font-size: 12px"/>
+                        <ace:simpleSelectOneMenu  value="#{cMPrepJSFBean.intArchivoXCpcIdSel}"
+                                                  valueChangeListener="#{cMPrepJSFBean.ddlArchivosel_ValueChange}"
+                                                  styleClass="combomediano">
+                            <f:selectItems value="#{cMPrepJSFBean.lstItemsArchivo}"/>
+                            <ace:ajax execute="@this" render="@all"/>
+                        </ace:simpleSelectOneMenu >
+                        <h:outputText value="Entidad:" style="font-size: 12px"/>
+                        <ace:simpleSelectOneMenu value="#{cMPrepJSFBean.strEntIdSel}" 
+                                                 valueChangeListener="#{cMPrepJSFBean.ddlEntidad_ValueChange}"
+                                                 styleClass="combolargo">
+                            <f:selectItems value="#{cMPrepJSFBean.lstItemsEntidad}"/>
+                        </ace:simpleSelectOneMenu >
+                        <h:outputText value="Periodo" style="font-size: 12px"/>
+                        <ace:maskedEntry  mask="99-9999" value="#{cMPrepJSFBean.lgregPeriodo}">
+                            <f:convertDateTime pattern="MM-yyyy" timeZone="GMT-6"/>
+                        </ace:maskedEntry>
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1" >
+                        <h:panelGrid columns="1" >
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Archivo" />
+                                <h:panelGrid columns="1">
+                                    <ace:fileEntry fileEntryListener="#{cMPrepJSFBean.ifArchivoProceso_ActionEvent}"
+                                                   title="Subir archivo (txt o .csv)"
+                                                   relativePath="uploaded"
+                                                   useSessionSubdir="true"
+                                                   useOriginalFilename="true"
+                                                   style="width: 300px;">
+                                        <f:attribute name="archivo" value="1"/>
+                                    </ace:fileEntry>
+
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:commandButton value="Cargar" title="Carga archivo proceso">
+                                <f:ajax disabled="True"/>
+                            </h:commandButton>                              
+
+                        </h:panelGrid>
+                        <h:outputText value="#{cMPrepJSFBean.mensaje}"
+                                      styleClass="outputText"/>
+                        <h:inputTextarea value="#{cMPrepJSFBean.msjArea}"
+                                         readonly="true"
+                                         styleClass="textAreaGrande"
+                                         style=" width:800px;
+                                         height: 500px;"/>
+                    </h:panelGrid>
+                </ace:panel>   
+            </h:panelGroup> 
+        </ui:define>
+    </ui:composition>
+</html>

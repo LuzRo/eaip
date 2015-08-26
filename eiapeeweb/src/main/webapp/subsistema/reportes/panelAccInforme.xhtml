@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:icecore="http://www.icefaces.org/icefaces/core"
+       xmlns:ace="http://www.icefaces.org/icefaces/components"
+       >
+    <ui:insert name="paneAccGenInforme">
+        <h:panelGroup>
+            <h:panelGrid style="float: right;top: 1px;margin-top: 2px;left:210px;position: fixed;z-index: 15" columns="5" >
+                <ace:pushButton value="Generar" rendered="true"
+                                actionListener="#{reportesProcesosJSFBean.btnGenInforme_Action}">
+                </ace:pushButton>
+
+            </h:panelGrid>
+        </h:panelGroup>
+    </ui:insert>
+</html>

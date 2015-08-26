@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <ui:insert name="panelMostrarInconsistencias">
+        <ace:panel header="Archivos" style="font-size: 12px" toggleable="true" toggleSpeed="200">
+            <h:panelGroup >
+                <ace:dataTable value="#{inconsPrespJSFBean.lstTablaSysRegistroCarga}"
+                               var="item"
+                               emptyMessage="No se encontraron datos"
+                               paginator="true"                               
+                               rowsPerPageTemplate="3"
+                               rows="5"  
+                               paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"                                       
+                               paginatorPosition="bottom"
+                               currentPageReportTemplate="(Archivos: {startRecord} - {endRecord} de {totalRecords}, Página: {currentPage}/{totalPages})" 
+                               style="font-size: 12px">
+                    <ace:column>
+                        <f:facet name="header">
+                            <h:outputText styleClass="outputText" value=">>>"/>
+                        </f:facet>
+                        <ace:linkButton value=">>>" 
+                                        actionListener="#{inconsPrespJSFBean.rowDtArchIncons_ActionEvent}"
+                                        styleClass="outputTextContTabla #{item.claseSel}">
+                            <ace:ajax execute="@this" render="@all"/>
+                            <f:attribute name="tablaSysRegistroCargaSel" value="#{item}"/>
+                        </ace:linkButton>
+                    </ace:column>
+                    <ace:column>
+                        <f:facet name="header">
+                            <h:outputText value="Entidad" styleClass="outputText" />
+                        </f:facet>
+                        <h:outputText value="#{item.sysRegistrocarga.entId.entNombre}"
+                                      styleClass="outputTextContTabla textcolumleft #{item.claseSel}"/>
+                    </ace:column>
+                    <ace:column>
+                        <f:facet name="header">
+                            <h:outputText value="Sigla" styleClass="outputText" />
+                        </f:facet>
+                        <h:outputText value="#{item.sysRegistrocarga.entId.entSigla}"
+                                      styleClass="outputTextContTabla #{item.claseSel}"/>
+                    </ace:column>
+                    <ace:column>
+                        <f:facet name="header">
+                            <h:outputText value="Archivo" styleClass="outputText" />
+                        </f:facet>
+                        <h:outputText value="#{item.sysRegistrocarga.lgregNomarchivocarga}"
+                                      styleClass="outputTextContTabla #{item.claseSel}"/>
+                    </ace:column>
+                    <ace:column>
+                        <f:facet name="header">
+                            <h:outputText value="Periodo" styleClass="outputText" />
+                        </f:facet>
+                        <h:outputText value="#{item.sysRegistrocarga.lgregPeriodo}"
+                                      styleClass="outputTextContTabla #{item.claseSel}">
+                            <f:convertDateTime pattern="MM-yyyy"/>
+                        </h:outputText>
+                    </ace:column>
+
+                </ace:dataTable>
+
+            </h:panelGroup>    
+        </ace:panel>
+        <ace:panel header="Inconsistencias" style="font-size: 12px" toggleable="true" toggleSpeed="200">
+            <ace:dataTable value="#{inconsPrespJSFBean.lstTablapcginc}" var="itemInc"
+                           emptyMessage="No se encontraron datos"
+                           paginator="true"                               
+                           rowsPerPageTemplate="3"
+                           rows="5"  
+                           paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"                                       
+                           paginatorPosition="bottom"
+                           currentPageReportTemplate="(Inconsistencias: {startRecord} - {endRecord} de {totalRecords}, Página: {currentPage}/{totalPages})" 
+                           style="font-size: 12px">
+                <ace:column>
+                    <f:facet name="header">
+                        <h:outputText value=">>>" styleClass="outputText" />
+                    </f:facet>
+                    <ace:linkButton value=">>>" 
+                                    actionListener="#{inconsPrespJSFBean.rowDtnconsXArch_ActionEvent}"
+                                    styleClass="outputTextContTabla">
+                        <ace:ajax execute="@this" render="@all"/>
+                        <f:attribute name="tablapcgincSel" value="#{itemInc}"/>
+                    </ace:linkButton>
+                </ace:column>
+                <ace:column>
+                    <f:facet name="header">
+                        <h:outputText value="Inconsistencia" styleClass="outputText" />
+                    </f:facet>
+                    <h:outputText value="#{itemInc.precmgastoinconsistencia.valId.valDescripcion}"
+                                  styleClass="#{itemInc.claseSel} outputTextContTabla textcolumleft"/>
+                </ace:column>             
+                <ace:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cod. Cuenta" styleClass="outputText" />
+                    </f:facet>
+                    <h:outputText value="#{itemInc.precmgastoinconsistencia.ginId.ginCodcuenta}"
+                                  styleClass=" #{itemInc.claseSel} outputTextContTabla textcolumleft"/>
+                </ace:column>
+                <ace:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nom. Cuenta" styleClass="outputText " />
+                    </f:facet>
+                    <h:outputText value="#{itemInc.precmgastoinconsistencia.ginId.ginNomcuenta}"
+                                  styleClass="#{itemInc.claseSel} outputTextContTabla textcolumleft"/>
+                </ace:column>
+                <ace:column>
+                    <f:facet name="header">
+                        <h:outputText value="Plan cuentas" styleClass="outputText" />
+                    </f:facet>
+                    <ace:dataTable value="#{itemInc.lstTpcg}" var="itemPCG">
+                        <ace:column style="width: 150px">
+
+                            <h:outputText value="#{itemPCG.cntPCG.pcoNumcuenta}"
+                                          styleClass="outputTextContTablaInt textcolumleft" />
+                        </ace:column>
+                        <ace:column style="width: 190px">
+
+                            <h:outputText value="#{itemPCG.cntPCG.pcoNomcuenta}"
+                                          styleClass="outputTextContTablaInt textcolumleft" />
+                        </ace:column>
+                    </ace:dataTable>
+                </ace:column>
+            </ace:dataTable>
+        </ace:panel>
+        <ace:panel header="Acciones por inconsistencia" style="font-size: 12px" toggleable="true" toggleSpeed="200">
+            <ace:dataTable value="#{inconsPrespJSFBean.lstTablaAjuXVals}"
+                           var="item"
+                           emptyMessage="No se encontraron datos"
+                           paginator="true"                               
+                           rowsPerPageTemplate="3"
+                           rows="5"  
+                           paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"                                       
+                           paginatorPosition="bottom"
+                           currentPageReportTemplate="(Ajustes {startRecord} - {endRecord} de {totalRecords}, Página: {currentPage}/{totalPages})" 
+                           style="font-size: 12px">     
+                <ace:column  style="width: 180px">
+                    <f:facet name="header">
+                        <h:outputText value="Ajuste" styleClass="outputText" />
+                    </f:facet>
+                    <h:outputText value="#{item.ajxval.ajuId.ajuDescripcion}"
+                                  styleClass="outputTextContTabla textcolumleft #{item.claseSel}" />
+                </ace:column>
+                 <ace:column style="width: 70px; text-align: center">
+                    <f:facet name="header">
+                        <ace:pushButton value="Decidir" actionListener="#{inconsPrespJSFBean.btnDtAjuxvalAplicar_AE}"
+                                        >
+                        </ace:pushButton> 
+                    </f:facet>
+
+                    <ace:checkboxButton value="#{item.seleccionado}"
+                                        >                         
+                    </ace:checkboxButton>
+
+                </ace:column>
+
+            </ace:dataTable>
+        </ace:panel>
+    </ui:insert>
+</html>
