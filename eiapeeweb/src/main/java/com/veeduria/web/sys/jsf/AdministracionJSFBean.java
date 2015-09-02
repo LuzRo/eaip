@@ -77,7 +77,7 @@ public class AdministracionJSFBean extends BaseJSFBean implements Serializable {
     private SegusrSFBean lookupSegusrSFBeanBean() {
         try {
             Context c = new InitialContext();
-            return (SegusrSFBean) c.lookup("java:global/eaip/EIAPEE-ear-3/EIAPEE-ejb-3/SegusrSFBean!com.veeduria.sys.ejb.SegusrSFBean");
+            return (SegusrSFBean) c.lookup("java:eaip/EIAPEE-ear-3/EIAPEE-ejb-3/SegusrSFBean!com.veeduria.sys.ejb.SegusrSFBean");
            
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
