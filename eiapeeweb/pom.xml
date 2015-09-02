@@ -12,7 +12,7 @@
     <version>3</version>
     <packaging>war</packaging>
 
-    <name>eiapeeweb</name>
+    <name>eiapeeweb-3</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
