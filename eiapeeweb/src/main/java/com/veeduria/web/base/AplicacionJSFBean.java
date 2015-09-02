@@ -6,7 +6,6 @@ package com.veeduria.web.base;
 
 import com.veeduria.adm.AdmsistemaSLBean;
 import com.veeduria.adm.dao.AdmEntidad;
-import com.veeduria.adm.dao.AdmSectorestruc;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
