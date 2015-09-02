@@ -12,7 +12,6 @@ import com.veeduria.adm.dao.AdmEntidad;
 import com.veeduria.adm.dao.AdmSectoradmin;
 import com.veeduria.adm.dao.AdmSectorestruc;
 import com.veeduria.adm.dao.AdmUnidadejec;
-import com.veeduria.sys.dao.SysInforme;
 import com.veeduria.web.base.BaseJSFBean;
 import com.veeduria.web.base.TablaAdmEntidad;
 import com.veeduria.web.base.TablaSectorAdm;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -31,7 +29,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
-import javax.servlet.ServletContext;
 
 /**
  *
@@ -98,8 +95,7 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
     private List<SelectItem> lstItemsSysInfFrecuencia = new ArrayList<>();
     private String strFrecuenciaSel;
 //</editor-fold>
-//    @EJB
-//    private ReportesProcesosJSFBean rpjsfb;
+
     private String strTituloInf = "";
 
     public ReportesProcesosJSFBean() {
