@@ -48,7 +48,7 @@ public abstract class ProcCargadosFasesBase extends BaseJSFBean implements Seria
     protected CargadosfasesSFBean lookupCargadosfasesSFBeanBean() {
         try {
             Context c = new InitialContext();
-            return (CargadosfasesSFBean) c.lookup("java:global/EIAPEE/EIAPEE-ejb/CargadosfasesSFBean!com.veeduria.sys.ejb.CargadosfasesSFBean");
+            return (CargadosfasesSFBean) c.lookup("java:global/EIAPEE-ear/eiapeeweb-3/CargadosfasesSFBean!com.veeduria.sys.ejb.CargadosfasesSFBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
