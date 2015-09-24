@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <ui:insert name="inclCab">
+        <h:panelGroup id="menuBar" style="background-color: #bed4eb;">
+            <h:panelGroup style="float :left; margin-left: 3px;margin-top: 3px; position: absolute;">
+                <h:graphicImage name="images/logos/veeduria.gif"
+                                title="Esquema de Análisis Integral Preventivo - EAIP"
+                                style="float: left;top: 44px; left: 2px;"
+                                height="52px"
+                                width="160px"/>
+            </h:panelGroup>
+            <ace:menuBar styleClass="cabecera" autoSubmenuDisplay="true"  widgetVar="menuBarPrinc"
+                         model="#{administracionJSFBean.menuModel}"
+                         effect="fade" effectDuration="200"  
+                         style="background-color:transparent;z-index: 20;margin-top: 55px;border: 0px; left: 10px;">
+            </ace:menuBar>
+            <h:panelGroup style="float :left; margin-left: 3px;margin-top: 3px; position: absolute;">
+                <h:panelGrid style="float: right;top: 3px;margin-top: 3px;Left:170px;position: fixed;z-index: 20"
+                             columns="2">
+
+
+                    <h:commandButton action="Home" value=" "                                 
+                                     title="Ir a la página principal"
+                                     style="z-index: 100"
+                                     styleClass="btnBandejaEntrada"
+                                     actionListener="#{administracionJSFBean.btnInicio_ActionEvent}">
+
+                    </h:commandButton>  
+                    <!--<h:commandButton action="Volver" value=" "                                 
+                                     title="Ir a atrás"
+                                     style="z-index: 100"
+                                     styleClass="btnVolver"
+
+                                     actionListener="#{administracionJSFBean.btnInicio_ActionEvent}">
+
+                    </h:commandButton>  -->
+                    <!--
+                                        <h:panelGrid id="commandButtons" styleClass="centeredPanelGridWithBorderSpacing" columns="2">
+                                            <h:commandButton id="clientBttnShow" value="Show via client" onclick="myNoteBar.show();" type="button"/>
+                                            <h:commandButton id="clientBttnHide" value="Hide via client" onclick="myNoteBar.hide();" type="button"/>
+                    
+                                        </h:panelGrid>
+                    -->
+                </h:panelGrid>
+            </h:panelGroup>
+            <h:panelGroup style="position: fixed; right: 5px; ">
+                <ace:submitMonitor  blockUI="@none" >
+
+                </ace:submitMonitor> 
+            </h:panelGroup>
+            <h:panelGroup style="position: fixed;top: 3px;margin-top: 3px; left: 80%;">
+                <h:panelGrid columns="1" style="background-color: transparent;float: left">
+                    <h:commandLink value="#{administracionJSFBean.sysfuncionario.frnNombre} #{administracionJSFBean.sysfuncionario.frnApellido}"
+                                   style="background-color: transparent; font-size: 12px; font-weight: bold;
+                                   width: 10px; position: relative; right: 40px;"
+                                   rendered="#{administracionJSFBean.renderNavegacion}" action="bandEntrada"
+                                   title="Usuario"  actionListener="#{administracionJSFBean.btnInicio_ActionEvent}"/>
+                </h:panelGrid>
+                <h:commandButton id="btnUsuarioMenu" styleClass="btnmenuUsuario"
+                                 style="float: right; position: absolute; right: 2px;">
+                    <h:graphicImage name="images/iconos/ColeccionIconosElyon-29.png" width="36px" height="32px"/>
+                </h:commandButton>
+                <ace:menu id="menu" effect="fade" effectDuration="300" position="dynamic"
+                          trigger="btnUsuarioMenu" my="right top" zindex="250000"
+                          at="right bottom" triggerEvent="click">
+                    <ace:menuItem value="Acerca de" icon="ui-icon"
+                                  styleClass="letraMenu" style="text-decoration: none"
+                                  actionListener="#{administracionJSFBean.navMenu_ActionEvent}"
+                                  action="#{administracionJSFBean.navMenu_Action}">
+                    </ace:menuItem>
+                    <ace:menuItem value="Cambiar clave" icon="ui-icon"
+                                  styleClass="letraMenu" style="text-decoration: none"
+                                  actionListener="#{administracionJSFBean.navMenu_ActionEvent}"
+                                  action="#{administracionJSFBean.navMenu_Action}">
+                    </ace:menuItem>
+                    <ace:menuItem value="Manual" icon="ui-icon" 
+                                  styleClass="letraMenu" style="text-decoration: none"
+                                  actionListener="#{administracionJSFBean.navMenu_ActionEvent}"
+                                  action="#{administracionJSFBean.navMenu_Action}">                        
+                    </ace:menuItem>
+                    <ace:menuItem value="Cerrar sesión" icon="ui-icon"
+                                  styleClass="letraMenu" style="text-decoration: none"
+                                  actionListener="#{administracionJSFBean.navMenu_ActionEvent}"
+                                  action="#{administracionJSFBean.navMenu_Action}">
+                        <f:attribute name="navegacion" value="salir" />
+                    </ace:menuItem>
+                </ace:menu>
+            </h:panelGroup>
+            <ace:notificationPanel id="notificationPanel"
+                                   widgetVar="myNotificacionBar"                                  
+                                   position="top"                                                                   
+                                   style="height: 125px; width: 98%; color: #667; background-color: #ffc; border: 2px solid #fc0;z-index: 50">
+                <f:facet name="close">
+                    <div class="ui-icon ui-icon-closethick"></div>
+                </f:facet>  
+                <h:messages  showDetail="true" showSummary="false"  style="color:red;margin:8px;font-size: 15px; font-weight: bold"/>
+            </ace:notificationPanel>  
+        </h:panelGroup>
+    </ui:insert>
+    <!--
+    <h:form id="menuCab">        
+        <h:panelGroup style="background-color: transparent !important;">
+            <ace:menuBar model="#{administracionJSFBean.menuModel}" autoSubmenuDisplay="true"
+                         rendered="#{administracionJSFBean.renderNavegacion}"/>
+            <h:panelGroup style="position: relative;margin-right: 0px; float: right">
+                <h:commandButton  action="bandEntrada"                                             
+                                  styleClass="btnInicioStd"
+                                  id="btnInicioBandEntrada"
+                                  title="Inicio"
+                                  rendered="#{administracionSFBean.renderNavegacion}">
+                </h:commandButton>
+                <ace:tooltip for="btnInicioBandEntrada" value="Ir a la página principal" showEffect="fade" hideEffect="fade"/>
+            </h:panelGroup>
+        </h:panelGroup>            
+    </h:form>
+    -->
+</html>
+

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:icecore="http://www.icefaces.org/icefaces/core"
+       xmlns:ace="http://www.icefaces.org/icefaces/components">
+    <ui:insert name="paneLeftGenInforme">
+        <ace:panel header="Crear punto de control">
+            <h:panelGrid columns="2">
+                <h:outputText value="Código"/>
+                <ace:textEntry value="#{notificacionJSFBean.tablaPtcDefSel.pd.defCodigo}"/>
+                <h:outputText value="Nombre"/>
+                <ace:textAreaEntry value="#{notificacionJSFBean.tablaPtcDefSel.pd.defDescripcion}"/>
+                <h:outputText value="Estado"/>
+                <ace:checkboxButton value="#{notificacionJSFBean.estadoPctGrabar}"/>
+                <h:outputText value="Tipo"/>
+                <ace:selectMenu value="#{notificacionJSFBean.tipoPtcSel}" 
+                                valueChangeListener="#{notificacionJSFBean.ddlTipoPtcGrabar_VCE}">
+                    <ace:ajax execute="@this" render="@this"/>
+                    <f:selectItems value="#{notificacionJSFBean.lstItemsTipoPtc}"/>
+                </ace:selectMenu>  
+            </h:panelGrid>
+
+
+        </ace:panel>
+        <ace:panel header="Puntos de control existentes">
+            <ace:dataTable value="#{notificacionJSFBean.lstTablaPtcDef}" var="item"
+                           emptyMessage="No se encontraron datos"
+                           paginator="true"                               
+                           rowsPerPageTemplate="3"
+                           rows="6"  
+                           paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"                                       
+                           paginatorPosition="bottom"
+                           currentPageReportTemplate="(Página: {currentPage}/{totalPages})" 
+                           style="font-size: 12px"
+                           >
+                <f:facet name="header">
+                    <h:outputText value="Definición puntos de control"/>
+                </f:facet>
+
+                <ace:column style="width: 120px"> 
+                    <f:facet name="header">
+                        <h:outputText value="Código"/>
+                    </f:facet>
+                    <ace:linkButton value="#{item.pd.defCodigo}" actionListener="#{notificacionJSFBean.rowDtPtcdef_AE}"
+                                    styleClass="outputTextContTabla textcolumleft  #{item.claseSel}">
+                        <f:attribute name="tablaPtcDefSel" value="#{item}"/>
+                    </ace:linkButton>
+                </ace:column>
+                <ace:column style="width: 270px">
+                    <f:facet name="header">
+                        <h:outputText value="Defincinión"/>
+                    </f:facet>
+                    <h:outputText value="#{item.pd.defDescripcion}" 
+                                  styleClass="outputTextContTabla textcolumleft #{item.claseSel}"/>
+                </ace:column>
+                <ace:column style="width: 50px">
+                    <f:facet name="header">
+                        <h:outputText value="Estado"/>
+                    </f:facet>
+                    <ace:checkboxButton value="#{item.pd.defEstado}" disabled="true"
+                                        />
+                </ace:column>
+                <ace:column style="width: 170px">
+                    <f:facet name="header">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Tipo"/>
+                            <ace:selectMenu value="#{notificacionJSFBean.tipoPtcSel}" 
+                                            valueChangeListener="#{notificacionJSFBean.ddlTipoPtc_VCE}">
+                                <ace:ajax/>
+                                <f:selectItems value="#{notificacionJSFBean.lstItemsTipoPtc}"/>
+                            </ace:selectMenu>  
+                        </h:panelGrid>
+                    </f:facet>
+                    <h:outputText value="#{item.pd.tpcId.tcpNombre}"  styleClass="outputTextContTabla  #{item.claseSel}"/>
+                </ace:column>
+            </ace:dataTable>
+        </ace:panel>
+    </ui:insert>
+</html>

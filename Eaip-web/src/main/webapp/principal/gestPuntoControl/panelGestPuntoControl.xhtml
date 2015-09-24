@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:icecore="http://www.icefaces.org/icefaces/core"
+       xmlns:ace="http://www.icefaces.org/icefaces/components">
+    <ui:insert name="paneLeftGenInforme">
+        <ace:panel header="Gestión punto de control">
+            <h:panelGrid columns="2" styleClass="tablaAlnVer">
+                <ace:dataTable value="#{gestionPCTRLJSBean.lstTablaPctrlXFunc}" var="item"
+                               emptyMessage="No se encontraron datos"
+                               paginator="true"                               
+                               rowsPerPageTemplate="3"
+                               rows="6"  
+                               paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"                                       
+                               paginatorPosition="bottom"
+                               currentPageReportTemplate="(Página: {currentPage}/{totalPages})" 
+                               style="font-size: 12px"
+                               >
+                    <ace:column>
+                        <ace:linkButton value=">>>" actionListener="#{gestionPCTRLJSBean.rowDtPtctrlXFunc_AE}">
+                            <f:attribute name="tablaPuntoCtrlXFuncSel" value="#{item}"/>
+                        </ace:linkButton>
+                    </ace:column>
+                    <ace:column>
+                        <f:facet name="header">
+                            <h:outputText value="Punto de control"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pp.defId.defDescripcion}"
+                                      styleClass="outputTextContTabla textcolumleft  #{item.claseSel}"/>
+                    </ace:column>
+
+                    <ace:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fecha inicio"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pp.ntfrId.notId.notFinicio}"
+                                      styleClass="outputTextContTabla #{item.claseSel}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </ace:column>
+                    <ace:column>
+                        <f:facet name="header">
+                            <h:outputText value="Fecha final"/>
+                        </f:facet>
+                        <h:outputText value="#{item.pp.ntfrId.notId.notFfinal}"
+                                      styleClass="outputTextContTabla #{item.claseSel}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </ace:column>
+                </ace:dataTable>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Actividad"/>
+                    <ace:textAreaEntry value="#{gestionPCTRLJSBean.tablaLogPctrlSel.pl.segActividad}" cols="30" rows="6"/>
+                </h:panelGrid>
+            </h:panelGrid>
+
+        </ace:panel>
+        <ace:panel header="Actividades puntos de control">
+            <ace:dataTable value="#{gestionPCTRLJSBean.lstTablaLogPctrl}" var="itemLog"
+                           emptyMessage="No se encontraron datos"
+                           paginator="true"                               
+                           rowsPerPageTemplate="3"
+                           rows="6"  
+                           paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"                                       
+                           paginatorPosition="bottom"
+                           currentPageReportTemplate="(Página: {currentPage}/{totalPages})" 
+                           style="font-size: 12px">
+                <ace:column>
+                    <f:facet name="header">
+                        <h:outputText value="Actividad"/>
+                    </f:facet>
+                    <h:outputText value="#{itemLog.pl.segActividad}"      
+                                  styleClass="outputTextContTabla textcolumleft  #{itemLog.claseSel}"/>
+                </ace:column>
+                 <ace:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha creación"/>
+                    </f:facet>
+                     <h:outputText value="#{itemLog.pl.segFechacreacion}"      
+                                  styleClass="outputTextContTabla #{itemLog.claseSel}">
+                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                     </h:outputText>
+                </ace:column>
+            </ace:dataTable>
+        </ace:panel>
+    </ui:insert>
+</html>

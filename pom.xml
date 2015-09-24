@@ -10,6 +10,7 @@
     <module>EIAPEE-ear</module>
     <module>eiapeeweb</module>
     <module>EIAPEE-ejb</module>
+    <module>Eaip-web</module>
   </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

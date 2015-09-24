@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <ui:insert name="panelNotPend">
+        <ace:dataTable value="#{administracionJSFBean.lstTablaNotifs}" var="itemPend"
+                        emptyMessage="No se encontraron datos"
+                                   paginator="true"                               
+                                   rowsPerPageTemplate="3"
+                                   rows="10"  
+                                   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"                                       
+                                   paginatorPosition="bottom"
+                                   currentPageReportTemplate="(Página: {currentPage}/{totalPages})" 
+                                   style="font-size: 12px">
+            <f:facet name="header">
+                <h:outputText value="Notificaciones"/>
+            </f:facet>
+            <ace:column groupBy="#{itemPend.an.proId.proNombre}">
+                <f:facet name="header">
+                    <h:outputText value="Proceso"/>
+                </f:facet>
+                <h:outputText value="#{itemPend.an.proId.proNombre}"/>
+            </ace:column>
+            <ace:column>
+                <ace:linkButton value=">>>" actionListener="#{administracionJSFBean.rowDtNotif_AE}"
+                                action="#{administracionJSFBean.rowDtNotif_A}">
+                    <f:attribute name="tablaNotifSel" value="#{itemPend}"/>
+                    <f:attribute name="navegacion" value="gestPuntosControl"/>
+                    <f:attribute name="jsfbean" value="gestionPCTRLJSBean"/>
+                </ace:linkButton>
+            </ace:column>
+            <ace:column >
+                <f:facet name="header">
+                    <h:outputText value="Mensaje"/>
+                </f:facet>
+                <h:outputText value="#{itemPend.an.notMensaje}" styleClass="outputTextContTabla textcolumleft  #{itemPend.claseSel}"/>
+            </ace:column>
+             <ace:column >
+                <f:facet name="header">
+                    <h:outputText value="Creación"/>
+                </f:facet>
+                 <h:outputText value="#{itemPend.an.notFcreacion}">
+                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                 </h:outputText>
+            </ace:column>
+            <ace:column >
+                <f:facet name="header">
+                    <h:outputText value="Fecha inicio"/>
+                </f:facet>
+                <h:outputText value="#{itemPend.an.notFinicio}">
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                 </h:outputText>
+            </ace:column>
+            <ace:column >
+                <f:facet name="header">
+                    <h:outputText value="Fecha final"/>
+                </f:facet>
+                <h:outputText value="#{itemPend.an.notFfinal}">
+                     <f:convertDateTime pattern="dd/MM/yyyy"/>
+                 </h:outputText>
+            </ace:column>
+        </ace:dataTable>
+    </ui:insert>
+</html>

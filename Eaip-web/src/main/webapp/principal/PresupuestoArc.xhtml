@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+
+    <ui:composition template="/base/paginamaestra.xhtml">   
+        <ui:define name="top">
+
+        </ui:define>
+        <ui:define name="left">
+
+            <ui:include src="leftBandEntrada.xhtml"/>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup style="width: 500px">
+                <ace:dataTable value="#{administracionJSFBean.lstTablaSysArchivos}"
+                               var="item"                               
+                               emptyMessage="No se encontraron datos"
+                               paginator="true"
+                               
+                               rowsPerPageTemplate="3"
+                               rows="30"  
+                               paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"                                       
+                               paginatorPosition="bottom"
+                               currentPageReportTemplate="(Notificaciones: {startRecord} - {endRecord} de {totalRecords}, Página: {currentPage}/{totalPages})" style="font-size: 12px">
+                    <ace:column groupBy="#{item.sysArchivo.cpcId.cpcNombre}" style=" width: 130px">
+                        <f:facet name="header">
+                            <h:outputText value="Tipo"  style="font-size: 12px"/>
+                        </f:facet>
+                        <h:outputText value="#{item.sysArchivo.cpcId.cpcNombre}" styleClass="textcolumleft" style="font-size: 12px;"/>
+
+                    </ace:column>
+                    <ace:column style=" width: 30px">
+
+                        <h:commandLink value=">>>" actionListener="#{administracionJSFBean.dtRowListaArchivos_ActionEvent}"
+                                       action="#{administracionJSFBean.dtRowListaArchivos_Action}">
+                            <f:attribute name="archivo" value="#{item}"/>
+                        </h:commandLink>
+                    </ace:column>
+                    <ace:column styleClass="titulotabla" style=" width: 120px; ">
+                        <f:facet name="header">
+
+                            <h:outputText value="Nombre archivo" style="font-size: 12px"/>
+                        </f:facet>    
+                        <h:outputText style="font-size: 12px" value="#{item.sysArchivo.arcNombre}" styleClass="textcolumleft"/>
+                    </ace:column>
+                    <ace:column style=" width: 200px">
+                        <f:facet name="header">
+                            <h:outputText value="Descripción archivo" style="font-size: 12px"/>
+                        </f:facet>    
+                        <h:outputText value="#{item.sysArchivo.arcDescripcion}"
+                                      style="font-size: 12px" styleClass="textcolumleft"/>
+                    </ace:column>
+                    <ace:column style=" width: 20px">
+                        <f:facet name="header">
+                            <h:outputText value="Columnas esperadas" style="font-size: 12px"/>
+                        </f:facet>    
+                        <h:outputText value="#{item.sysArchivo.arcColumnas}" style="font-size: 12px"/>
+                    </ace:column>
+                </ace:dataTable>
+            </h:panelGroup>
+
+        </ui:define>
+    </ui:composition>
+</html>

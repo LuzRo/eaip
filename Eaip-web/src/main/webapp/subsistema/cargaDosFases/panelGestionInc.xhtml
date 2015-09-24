@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+
+    <ui:insert name="panelAccCargaDosFases">
+        <h:panelGrid columns="2" styleClass="tablaAlnVer">
+            <ace:panel header="Archivos" style="font-size: 12px" toggleable="true" toggleSpeed="200">
+                <h:panelGroup >
+                    <ace:dataTable value="#{inconsPrespJSFBean.lstTablaSysRegCargLog}"
+                                   var="item"
+                                   emptyMessage="No se encontraron datos"
+                                   paginator="true"                               
+                                   rowsPerPageTemplate="3"
+                                   rows="5"  
+                                   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"                                       
+                                   paginatorPosition="bottom"
+                                   currentPageReportTemplate="(Archivos: {startRecord} - {endRecord} de {totalRecords}, Página: {currentPage}/{totalPages})" 
+                                   style="font-size: 12px">
+                        <ace:column>
+                            <f:facet name="header">
+                                <h:outputText styleClass="outputText" value=">>>"/>
+                            </f:facet>
+                            <ace:linkButton value=">>>" 
+                                            actionListener="#{inconsPrespJSFBean.rowDtArchInconsLog_ActionEvent}"
+                                            styleClass="outputTextContTabla #{item.claseSel}">
+                                <ace:ajax execute="@this" render="@all"/>
+                                <f:attribute name="tablaSysRegCargLogSel" value="#{item}"/>
+                            </ace:linkButton>
+                        </ace:column>
+                        <ace:column>
+                            <f:facet name="header">
+                                <h:outputText value="Entidad" styleClass="outputText" />
+                            </f:facet>
+                            <h:outputText value="#{item.sysRegistrocarga.entId.entNombre}"
+                                          styleClass="outputTextContTabla textcolumleft #{item.claseSel}"/>
+                        </ace:column>
+                        <ace:column>
+                            <f:facet name="header">
+                                <h:outputText value="Sigla" styleClass="outputText" />
+                            </f:facet>
+                            <h:outputText value="#{item.sysRegistrocarga.entId.entSigla}"
+                                          styleClass="outputTextContTabla #{item.claseSel}"/>
+                        </ace:column>
+                        <ace:column>
+                            <f:facet name="header">
+                                <h:outputText value="Archivo" styleClass="outputText" />
+                            </f:facet>
+                            <h:outputText value="#{item.sysRegistrocarga.lgregNomarchivocarga}"
+                                          styleClass="outputTextContTabla #{item.claseSel}"/>
+                        </ace:column>
+                        <ace:column>
+                            <f:facet name="header">
+                                <h:outputText value="Periodo" styleClass="outputText" />
+                            </f:facet>
+                            <h:outputText value="#{item.sysRegistrocarga.lgregPeriodo}"
+                                          styleClass="outputTextContTabla #{item.claseSel}">
+                                <f:convertDateTime pattern="MM-yyyy"/>
+                            </h:outputText>
+                        </ace:column>
+
+                    </ace:dataTable>
+
+                </h:panelGroup>    
+            </ace:panel>  
+
+        </h:panelGrid>
+
+
+        <ace:dataTable value="#{inconsPrespJSFBean.lstTablaLogIncons}" var="itemLogInc"                     
+                       emptyMessage="No se encontraron datos"
+                       paginator="true"                               
+                       rowsPerPageTemplate="3"
+                       rows="5"  
+                       paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"                                       
+                       paginatorPosition="bottom"
+                       currentPageReportTemplate="(Inconsistencia: {startRecord} - {endRecord} de {totalRecords}, Página: {currentPage}/{totalPages})" 
+                       style="font-size: 12px">
+            
+            <ace:column>
+                <ace:linkButton value=">>>" actionListener="#{inconsPrespJSFBean.rowDtLogInc_AE}">
+                    <f:attribute name="tablaLogInconsSel"  value="#{itemLogInc}"/>                           
+                </ace:linkButton>
+            </ace:column>
+            <ace:column>
+                <f:facet name="header">
+                    <h:outputText value="Cuenta"/>
+                </f:facet>
+                <h:outputText value="#{itemLogInc.al.gerId.ginId.ginCodcuenta}"/>
+            </ace:column>
+              <ace:column>
+                <f:facet name="header">
+                    <h:outputText value="Nombre"/>
+                </f:facet>
+                  <h:outputText value="#{itemLogInc.al.gerId.ginId.ginNomcuenta}"/>
+            </ace:column>
+            <ace:column>
+                <f:facet name="header">
+                    <h:outputText value="Inconsistencia" styleClass="outputText"/>
+                </f:facet>
+                <h:outputText value="#{itemLogInc.al.gerId.valId.valDescripcion}"/>
+            </ace:column>
+            <ace:column>
+                <f:facet name="header">
+                    <h:outputText value="Ajuste" styleClass="outputText"/>
+                </f:facet>
+                <h:outputText value="#{itemLogInc.al.avaId.ajuId.ajuDescripcion}"/>
+            </ace:column>
+        </ace:dataTable>
+        <ace:panel header="Ajustar">
+            <h:panelGroup rendered="#{inconsPrespJSFBean.tablaLogInconsSel.al.avaId.ajuId.ajuId == 3 ? true : false}">
+                <ui:include src="ajustesdf/panelHomlCnt.xhtml"/>
+            </h:panelGroup>
+             <h:panelGroup rendered="#{inconsPrespJSFBean.tablaLogInconsSel.al.avaId.ajuId.ajuId == 4 ? true : false}">
+                <ui:include src="ajustesdf/panelAddCuentaPG.xhtml"/>
+            </h:panelGroup>
+        </ace:panel>
+
+
+    </ui:insert>
+</html>

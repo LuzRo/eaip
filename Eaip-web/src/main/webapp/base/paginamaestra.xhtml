@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+    <h:head>
+        <title>EAIP ::: ESQUEMA DE ANALISIS INTEGRAL PREVENTIVO</title>
+        <!-- This line is only for ICE component, remove it if no ice component is used in this page.-->
+        <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
+        <h:outputStylesheet name="css/cssLayout.css" />
+        <h:outputStylesheet name="css/default.css" />
+        <h:outputStylesheet name="css/veeduria.css" />
+        <h:outputStylesheet name ="css/inicio.css"/>
+        <h:outputStylesheet  name="css/formularios.css"/>
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <div id="top"  title="EAIP" >
+                <ui:include src="marcogeneral.xhtml"/>
+                <ui:insert name="top">TOP</ui:insert>
+            </div>
+            <div id="left" title="EAIP" >
+                <ui:insert name="left">LEFT</ui:insert>
+            </div>
+            <div id="right" title="EAIP" >
+                    <ui:insert name="right"></ui:insert>
+                </div>
+            <div id="content" style="background-color: white" title="EAIP" >
+                <ui:insert name="content">CONTENT</ui:insert>
+            </div>
+        </h:form>
+    </h:body>
+</html>
