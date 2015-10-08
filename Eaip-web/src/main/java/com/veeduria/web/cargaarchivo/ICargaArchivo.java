@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.veeduria.web.cargaarchivo;
 
 /**
@@ -12,6 +11,6 @@ package com.veeduria.web.cargaarchivo;
  * @param <T>
  */
 public interface ICargaArchivo<T> {
-    
-    public boolean cargarArchivo ();
+
+    public void cargarArchivoExcel();
 }
