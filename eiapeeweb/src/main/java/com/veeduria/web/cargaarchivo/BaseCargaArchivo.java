@@ -12,6 +12,7 @@ import com.veeduria.dosfases.jsf.ProcCargadosFasesBase;
 import com.veeduria.sys.dao.SysRegistrocarga;
 import com.veeduria.sys.dao.SysArchivosporentidades;
 import com.veeduria.web.base.BaseJSFBean;
+import com.veeduria.web.cargaarchivo.aut.th.CargaPlanta;
 import com.veeduria.web.cargaarchivo.jsf.CMPrepJSFBean;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -135,12 +136,15 @@ public class BaseCargaArchivo extends BaseJSFBean {
                             sr.setSesId(new AdmSectorestruc(4));
                             sr.setEjeCodigo(new AdmUnidadejec("03"));
                             sr = aslb.grabarRegistrocarga(sr);
+                            
                             break;
                         case "cargarArchivosTH":
                             ta = aslb.getArchivosporentidades(strEntIdSel, intArchivoXCpcIdSel);
                             sr.setLgregNomarchivo(ta.getApeNomtabla());
                             sr.setEjeCodigo(new AdmUnidadejec("03"));
                             sr = aslb.grabarRegistrocarga(sr);
+                         //   ICargaArchivo ica = new CargaPlanta();
+                          
                             break;
                         case "cargarArchivoPre":
                             ta = aslb.getArchivosporentidades(strEntIdSel, getAdministracionJSFBean().getTablaSysArchivoSel().getSysArchivo().getArcId());

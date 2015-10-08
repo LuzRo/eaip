@@ -29,7 +29,7 @@ public class BaseNotificacion extends BaseJSFBean {
     protected AdmPuntosCtrlSFBEan lookupAdmPuntosCtrlSFBEan() {
         try {
             Context c = new InitialContext();      
-            return (AdmPuntosCtrlSFBEan) c.lookup("java:global/EIAPEE-ear/eiapeeweb-3/AdmPuntosCtrlSFBEan!com.veeduria.not.ejb.AdmPuntosCtrlSFBEan");
+            return (AdmPuntosCtrlSFBEan) c.lookup("java:global/Eaip-web/AdmPuntosCtrlSFBEan!com.veeduria.not.ejb.AdmPuntosCtrlSFBEan");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

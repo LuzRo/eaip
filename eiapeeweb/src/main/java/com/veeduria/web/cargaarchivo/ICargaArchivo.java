@@ -13,5 +13,5 @@ package com.veeduria.web.cargaarchivo;
  */
 public interface ICargaArchivo<T> {
     
-    public boolean cargarArchivo ();
+    public void cargarArchivoExcel ();
 }
