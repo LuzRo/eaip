@@ -19,7 +19,7 @@ import javax.ejb.Stateful;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 @Stateful
 @LocalBean
