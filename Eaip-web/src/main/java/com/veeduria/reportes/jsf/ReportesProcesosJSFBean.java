@@ -67,6 +67,7 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
     private Integer intAño;
     private Integer intAñoInicial;
     private Integer intAñoFinal;
+    private Integer intCuentaPD;
     private Integer intInfid;
     private String strNominforme;
     private String strEntsel;
@@ -294,8 +295,9 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                     case 8:
                         hm.put("p_sad_id", tablaSectorAdmSel.getAs().getSadId());
                         hm.put("p_ses_id", 3);
-                        hm.put("p_mes", intMes);
-                        hm.put("p_ano", intAño);
+                        hm.put("p_cta_pd", intCuentaPD);
+                        hm.put("p_ano_inicial", intAñoInicial);
+                        hm.put("p_ano_final", intAñoFinal);
                         hm.put("p_nombsector", tablaSectorAdmSel.getAs().getSadNombre());
                         hm.put("p_ses_nombre", "CENTRAL Y DESCENTRALIZADO");
                         break;
@@ -987,6 +989,20 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
      */
     public void setLstTablaAdmEntidad(List<TablaAdmEntidad> lstTablaAdmEntidad) {
         this.lstTablaAdmEntidad = lstTablaAdmEntidad;
+    }
+
+    /**
+     * @return the intCuentaPD
+     */
+    public Integer getIntCuentaPD() {
+        return intCuentaPD;
+    }
+
+    /**
+     * @param intCuentaPD the intCuentaPD to set
+     */
+    public void setIntCuentaPD(Integer intCuentaPD) {
+        this.intCuentaPD = intCuentaPD;
     }
 
 }

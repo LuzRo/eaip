@@ -97,22 +97,31 @@ and open the template in the editor.
                         </f:facet>
 
 
-                        <h:outputText value="Mes:" style="font-size: 12px"/>                        
-                        <h:selectOneMenu value="#{reportesProcesosJSFBean.intMes}"
+                        <h:outputText value="Cuenta PD:" style="font-size: 12px"/>                        
+                        <h:selectOneMenu value="#{reportesProcesosJSFBean.intCuentaPD}"
                                          styleClass="combocorto">
                             <f:selectItem itemValue="-1" itemLabel="SELECCIONE>>"/>
-                            <f:selectItem itemValue="1" itemLabel="3"/>
-                            <f:selectItem itemValue="2" itemLabel="6"/>
-                            <f:selectItem itemValue="3" itemLabel="9"/>
-                            <f:selectItem itemValue="4" itemLabel="12"/>
-                        </h:selectOneMenu>
-                        <h:outputText value="Año:" style="font-size: 12px"/>                        
-                        <h:selectOneMenu value="#{reportesProcesosJSFBean.intAño}"
+                            <f:selectItem itemValue="13" itemLabel="13"/>
+                            <f:selectItem itemValue="14" itemLabel="14"/>
+                            <f:selectItem itemValue="15" itemLabel="15"/>
+                        </h:selectOneMenu> 
+                        <h:outputText value="Año Inicial:" style="font-size: 12px"/>                        
+                        <h:selectOneMenu value="#{reportesProcesosJSFBean.intAñoInicial}"
                                          styleClass="combocorto">
                             <f:selectItem itemValue="-1" itemLabel="SELECCIONE>>"/>
                             <f:selectItem itemValue="2012" itemLabel="2012"/>
                             <f:selectItem itemValue="2013" itemLabel="2013"/>
                             <f:selectItem itemValue="2014" itemLabel="2014"/>
+                            <f:selectItem itemValue="2015" itemLabel="2015"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Año Final:" style="font-size: 12px"/>                        
+                        <h:selectOneMenu value="#{reportesProcesosJSFBean.intAñoFinal}"
+                                         styleClass="combocorto">
+                            <f:selectItem itemValue="-1" itemLabel="SELECCIONE>>"/>
+                            <f:selectItem itemValue="2012" itemLabel="2012"/>
+                            <f:selectItem itemValue="2013" itemLabel="2013"/>
+                            <f:selectItem itemValue="2014" itemLabel="2014"/>
+                            <f:selectItem itemValue="2015" itemLabel="2015"/>
                         </h:selectOneMenu>
                     </h:panelGrid>
                 </h:panelGroup>
