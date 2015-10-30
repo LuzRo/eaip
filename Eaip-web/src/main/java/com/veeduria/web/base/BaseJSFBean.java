@@ -14,6 +14,10 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -117,7 +121,7 @@ public abstract class BaseJSFBean implements Serializable {
             fc = FacesContext.getCurrentInstance();
             ExternalContext ec = fc.getExternalContext();
             String contextoApp = ec.getApplicationContextPath();
-            HttpSession hs = (HttpSession) ec.getSession(false);            
+            HttpSession hs = (HttpSession) ec.getSession(false);
             hs.setAttribute("rd", pRecursoDescarga);
             ec.redirect(contextoApp + "/DescargarArchivoServlet");
         } catch (IOException ex) {
@@ -269,7 +273,8 @@ public abstract class BaseJSFBean implements Serializable {
             fc = FacesContext.getCurrentInstance();
             ExternalContext ec = fc.getExternalContext();
             try (Connection con = jdbcVeeduria.getConnection()) {
-                InputStream inputStream = ec.getResourceAsStream(ruta_recursos + pAdmInforme.getInfJasperruta() + "/" + pAdmInforme.getInfJasper());
+                Path rutaReporte = Paths.get(ec.getRealPath(ruta_recursos + pAdmInforme.getInfJasperruta() + "/" + pAdmInforme.getInfJasper()));
+                InputStream inputStream = Files.newInputStream(rutaReporte, LinkOption.NOFOLLOW_LINKS);
                 hmParamInf.put("SUBREPORT_DIR", ec.getRealPath(ruta_recursos + pAdmInforme.getInfJasperruta()) + "/");
                 JasperPrint jp = JasperFillManager.fillReport(inputStream, hmParamInf, con);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -318,7 +323,7 @@ public abstract class BaseJSFBean implements Serializable {
                         exporterXLSX.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
                         exporterXLSX.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF8");
                         exporterXLSX.exportReport();
-                         jrResourceRetorna = new RecursoDescarga(baos.toByteArray(), "application/xlsx", pAdmInforme.getInfNombre() + ".xlsx");
+                        jrResourceRetorna = new RecursoDescarga(baos.toByteArray(), "application/xlsx", pAdmInforme.getInfNombre() + ".xlsx");
                         break;
                 }
                 if (jrResourceRetorna != null) {
@@ -329,7 +334,7 @@ public abstract class BaseJSFBean implements Serializable {
 
             }
 
-        } catch (JRException | SQLException ex) {
+        } catch (IOException | JRException | SQLException ex) {
             Logger.getLogger(BaseJSFBean.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
