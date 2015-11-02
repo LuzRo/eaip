@@ -65,6 +65,7 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
     //private Integer ano = -1;
     private Integer intMes;
     private Integer intAño;
+    private Integer intCuentaPD;
     private Integer intAñoInicial;
     private Integer intAñoFinal;
     private Integer intInfid;
@@ -293,9 +294,9 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                         break;
                     case 8:
                         hm.put("p_sad_id", tablaSectorAdmSel.getAs().getSadId());
-                        hm.put("p_ses_id", 3);
-                        hm.put("p_mes", intMes);
-                        hm.put("p_ano", intAño);
+                        hm.put("p_cta_pd", intCuentaPD);
+                        hm.put("p_ano_inicial", intAñoInicial);
+                        hm.put("p_ano_final", intAñoFinal);
                         hm.put("p_nombsector", tablaSectorAdmSel.getAs().getSadNombre());
                         hm.put("p_ses_nombre", "CENTRAL Y DESCENTRALIZADO");
                         break;

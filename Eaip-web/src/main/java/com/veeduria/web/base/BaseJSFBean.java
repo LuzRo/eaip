@@ -66,7 +66,7 @@ public abstract class BaseJSFBean implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="Variables">
     @Resource(name = "jdbcVeeduria")
     protected DataSource jdbcVeeduria;
-    protected String ruta_recursos = "WEB-INF/classes/reportes/";
+    protected String ruta_recursos = "/WEB-INF/classes/reportes/";
 
     protected SelectItem itemSeleccioneStr = new SelectItem("-1", "Seleccione>>");
     protected SelectItem itemSeleccioneInt = new SelectItem(-1, "Seleccione>>");

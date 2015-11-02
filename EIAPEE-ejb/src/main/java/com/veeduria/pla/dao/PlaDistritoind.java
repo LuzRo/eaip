@@ -47,12 +47,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PlaDistritoind.findByPdiIndindicadortiposuma", query = "SELECT p FROM PlaDistritoind p WHERE p.pdiIndindicadortiposuma = :pdiIndindicadortiposuma"),
     @NamedQuery(name = "PlaDistritoind.findByPdiIndestadoenpa", query = "SELECT p FROM PlaDistritoind p WHERE p.pdiIndestadoenpa = :pdiIndestadoenpa"),
     @NamedQuery(name = "PlaDistritoind.findByPdiInddescestadopa", query = "SELECT p FROM PlaDistritoind p WHERE p.pdiInddescestadopa = :pdiInddescestadopa"),
-    @NamedQuery(name = "PlaDistritoind.findByPdiInda\u00f1o", query = "SELECT p FROM PlaDistritoind p WHERE p.pdiInda\u00f1o = :pdiInda\u00f1o"),
+    @NamedQuery(name = "PlaDistritoind.findByPdiIndano", query = "SELECT p FROM PlaDistritoind p WHERE p.pdiIndano = :pdiIndano"),
     @NamedQuery(name = "PlaDistritoind.findByPdiIndproinicialpd", query = "SELECT p FROM PlaDistritoind p WHERE p.pdiIndproinicialpd = :pdiIndproinicialpd"),
     @NamedQuery(name = "PlaDistritoind.findByPdiIndprogactual", query = "SELECT p FROM PlaDistritoind p WHERE p.pdiIndprogactual = :pdiIndprogactual"),
     @NamedQuery(name = "PlaDistritoind.findByPdiIndejecvigencia", query = "SELECT p FROM PlaDistritoind p WHERE p.pdiIndejecvigencia = :pdiIndejecvigencia"),
     @NamedQuery(name = "PlaDistritoind.findByPdiIndporcvig", query = "SELECT p FROM PlaDistritoind p WHERE p.pdiIndporcvig = :pdiIndporcvig"),
-    @NamedQuery(name = "PlaDistritoind.findByPdiIndporctrapd", query = "SELECT p FROM PlaDistritoind p WHERE p.pdiIndporctrapd = :pdiIndporctrapd")})
+    @NamedQuery(name = "PlaDistritoind.findByPdiIndporcavtrapd", query = "SELECT p FROM PlaDistritoind p WHERE p.pdiIndporcavtrapd = :pdiIndporcavtrapd"),
+    @NamedQuery(name = "PlaDistritoind.findByPdiIndporcavpd", query = "SELECT p FROM PlaDistritoind p WHERE p.pdiIndporcavpd = :pdiIndporcavpd")})
+
 public class PlaDistritoind implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -106,8 +108,8 @@ public class PlaDistritoind implements Serializable {
     @Column(name = "pdi_inddescestadopa")
     private String pdiInddescestadopa;
     @Size(max = 100)
-    @Column(name = "pdi_inda\u00f1o")
-    private String pdiIndaño;
+    @Column(name = "pdi_indano")
+    private String pdiIndano;
     @Size(max = 100)
     @Column(name = "pdi_indproinicialpd")
     private String pdiIndproinicialpd;
@@ -121,8 +123,11 @@ public class PlaDistritoind implements Serializable {
     @Column(name = "pdi_indporcvig")
     private String pdiIndporcvig;
     @Size(max = 100)
-    @Column(name = "pdi_indporctrapd")
-    private String pdiIndporctrapd;
+    @Column(name = "pdi_indporcavtrapd")
+    private String pdiIndporcavtrapd;
+    @Size(max = 100)
+    @Column(name = "pdi_indporcavpd")
+    private String pdiIndporcavpd;
     @JoinColumn(name = "lgreg_id", referencedColumnName = "lgreg_id")
     @ManyToOne(optional = false)
     private SysRegistrocarga lgregId;
@@ -263,11 +268,11 @@ public class PlaDistritoind implements Serializable {
     }
 
     public String getPdiIndaño() {
-        return pdiIndaño;
+        return pdiIndano;
     }
 
-    public void setPdiIndaño(String pdiIndaño) {
-        this.pdiIndaño = pdiIndaño;
+    public void setPdiIndaño(String pdiIndano) {
+        this.pdiIndano = pdiIndano;
     }
 
     public String getPdiIndproinicialpd() {
@@ -303,11 +308,25 @@ public class PlaDistritoind implements Serializable {
     }
 
     public String getPdiIndporctrapd() {
-        return pdiIndporctrapd;
+        return pdiIndporcavtrapd;
     }
 
     public void setPdiIndporctrapd(String pdiIndporctrapd) {
-        this.pdiIndporctrapd = pdiIndporctrapd;
+        this.pdiIndporcavtrapd = pdiIndporctrapd;
+    }
+    
+        /**
+     * @return the pdiIndporcavpd
+     */
+    public String getPdiIndporcavpd() {
+        return pdiIndporcavpd;
+    }
+
+    /**
+     * @param pdiIndporcavpd the pdiIndporcavpd to set
+     */
+    public void setPdiIndporcavpd(String pdiIndporcavpd) {
+        this.pdiIndporcavpd = pdiIndporcavpd;
     }
 
     public SysRegistrocarga getLgregId() {
@@ -342,5 +361,7 @@ public class PlaDistritoind implements Serializable {
     public String toString() {
         return "com.veeduria.dao.PlaDistritoind[ pdiId=" + pdiId + " ]";
     }
+
+
     
 }
