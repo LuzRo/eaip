@@ -297,8 +297,8 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                         break;
                     case 8:
                         hm.put("p_sad_id", tablaSectorAdmSel.getAs().getSadId());
-                        hm.put("p_nombsector", tablaSectorAdmSel.getAs().getSadNombre());
-                        hm.put("p_cta_pd", intCuentaPD);
+                        hm.put("p_sectornombre", tablaSectorAdmSel.getAs().getSadNombre());
+                        hm.put("p_cuentapd", intCuentaPD);
                         hm.put("p_ano_inicial", intAñoInicial);
                         hm.put("p_ano_final", intAñoFinal);
 
