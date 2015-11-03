@@ -14,6 +14,7 @@ import com.veeduria.adm.dao.AdmSectorestruc;
 import com.veeduria.adm.dao.AdmUnidadejec;
 import com.veeduria.web.base.BaseJSFBean;
 import com.veeduria.web.base.TablaAdmEntidad;
+import com.veeduria.web.base.TablaPrecmGasto;
 import com.veeduria.web.base.TablaSectorAdm;
 import com.veeduria.web.cargaarchivo.jsf.CMPrepJSFBean;
 import java.io.Serializable;
@@ -89,6 +90,8 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
     private List<TablaAdmEntidad> lstTablaAdmEntidad = new ArrayList<>();
     private TablaSectorAdm tablaSectorAdmSel = new TablaSectorAdm();
     private TablaAdmEntidad tablaAdmEntidadSel = new TablaAdmEntidad();
+    private TablaPrecmGasto tablaPrecmGastoSel = new TablaPrecmGasto();
+    private List<TablaPrecmGasto> lstTablaPrecmGastos = new ArrayList<>();
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Presupuesto">
 
@@ -1002,6 +1005,28 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
      */
     public void setIntCuentaPD(Integer intCuentaPD) {
         this.intCuentaPD = intCuentaPD;
+    }
+
+    public TablaPrecmGasto getTablaPrecmGastoSel() {
+        return tablaPrecmGastoSel;
+    }
+
+    public void setTablaPrecmGastoSel(TablaPrecmGasto tablaPrecmGastoSel) {
+        this.tablaPrecmGastoSel = tablaPrecmGastoSel;
+    }
+
+    /**
+     * @return the lstTablaPrecmGastos
+     */
+    public List<TablaPrecmGasto> getLstTablaPrecmGastos() {
+        return lstTablaPrecmGastos;
+    }
+
+    /**
+     * @param lstTablaPrecmGastos the lstTablaPrecmGastos to set
+     */
+    public void setLstTablaPrecmGastos(List<TablaPrecmGasto> lstTablaPrecmGastos) {
+        this.lstTablaPrecmGastos = lstTablaPrecmGastos;
     }
 
 }

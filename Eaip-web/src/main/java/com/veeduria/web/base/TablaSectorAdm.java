@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 public class TablaSectorAdm extends TablaBaseFrm{
     private AdmSectoradmin as = new AdmSectoradmin();

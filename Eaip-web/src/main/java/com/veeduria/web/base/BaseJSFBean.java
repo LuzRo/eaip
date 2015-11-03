@@ -50,7 +50,6 @@ import net.sf.jasperreports.engine.export.JExcelApiExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
-//import org.apache.hadoop.hive.ql.plan.CollectDesc;
 import org.icefaces.util.JavaScriptRunner;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -312,7 +311,7 @@ public abstract class BaseJSFBean implements Serializable {
                         exporterCSV.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, true);
                         exporterCSV.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF8");
                         exporterCSV.exportReport();
-                        jrResourceRetorna = new RecursoDescarga(baos.toByteArray(), "application/xls", pAdmInforme.getInfNombre());
+                        jrResourceRetorna = new RecursoDescarga(baos.toByteArray(), "application/xls", pAdmInforme.getInfNombre() );
                         break;
 
                     case 5:
