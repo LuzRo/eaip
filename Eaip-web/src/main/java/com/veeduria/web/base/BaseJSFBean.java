@@ -273,7 +273,7 @@ public abstract class BaseJSFBean implements Serializable {
             fc = FacesContext.getCurrentInstance();
             ExternalContext ec = fc.getExternalContext();
             try (Connection con = jdbcVeeduria.getConnection()) {
-                Path rutaReporte = Paths.get(ec.getRealPath(ruta_recursos + pAdmInforme.getInfJasperruta() + "/" + pAdmInforme.getInfJasper()));
+                Path rutaReporte = Paths.get(ec.getRealPath(ruta_recursos + pAdmInforme.getInfJasperruta() + pAdmInforme.getInfJasper()));
                 InputStream inputStream = Files.newInputStream(rutaReporte, LinkOption.NOFOLLOW_LINKS);
                 hmParamInf.put("SUBREPORT_DIR", ec.getRealPath(ruta_recursos + pAdmInforme.getInfJasperruta()) + "/");
                 JasperPrint jp = JasperFillManager.fillReport(inputStream, hmParamInf, con);
