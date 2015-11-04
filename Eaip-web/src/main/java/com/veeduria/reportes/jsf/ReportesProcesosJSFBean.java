@@ -299,7 +299,6 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                         hm.put("p_cuentapd", intCuentaPD);
                         hm.put("p_ano_inicial", intAñoInicial);
                         hm.put("p_ano_final", intAñoFinal);
-
                         break;
                 }
                 break;
