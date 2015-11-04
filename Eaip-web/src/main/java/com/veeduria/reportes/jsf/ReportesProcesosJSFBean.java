@@ -92,7 +92,6 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Presupuesto">
-
     private List<SelectItem> lstItemsSysCompxFrecxInf = new ArrayList<>();
     private List<SelectItem> lstItemsSysInfFrecuencia = new ArrayList<>();
     private String strFrecuenciaSel;
@@ -299,6 +298,9 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                         hm.put("p_cuentapd", intCuentaPD);
                         hm.put("p_ano_inicial", intAñoInicial);
                         hm.put("p_ano_final", intAñoFinal);
+                        break;
+                    case 7:
+                        hm.put("p_codigo_entidad", tablaAdmEntidadSel.getAs().getEntCdpredis()); 
                         break;
                 }
                 break;
@@ -1003,6 +1005,5 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
     public void setIntCuentaPD(Integer intCuentaPD) {
         this.intCuentaPD = intCuentaPD;
     }
-
 
 }
