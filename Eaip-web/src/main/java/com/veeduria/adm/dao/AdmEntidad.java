@@ -80,13 +80,13 @@ public class AdmEntidad implements Serializable {
     private String entCdsiscontable;
     @Size(max = 50)
     @Column(name = "ent_cdpredis")
-    private Integer entCdpredis;
+    private Double entCdpredis;
     @Size(max = 50)
     @Column(name = "ent_cdsivicof")
     private String entCdsivicof;
     @Size(max = 50)
     @Column(name = "ent_cdsegplan")
-    private Integer entCdsegplan;
+    private Double entCdsegplan;
     @JoinColumn(name = "cpc_id", referencedColumnName = "cpc_id")
     @ManyToOne
     private PreClaseplancuenta cpcId;
@@ -299,14 +299,14 @@ public class AdmEntidad implements Serializable {
     /**
      * @return the entCdpredis
      */
-    public Integer getEntCdpredis() {
+    public Double getEntCdpredis() {
         return entCdpredis;
     }
 
     /**
      * @param entCdpredis the entCdpredis to set
      */
-    public void setEntCdpredis(Integer entCdpredis) {
+    public void setEntCdpredis(Double entCdpredis) {
         this.entCdpredis = entCdpredis;
     }
 
@@ -327,14 +327,14 @@ public class AdmEntidad implements Serializable {
     /**
      * @return the entCdsegplan
      */
-    public Integer getEntCdsegplan() {
+    public Double getEntCdsegplan() {
         return entCdsegplan;
     }
 
     /**
      * @param entCdsegplan the entCdsegplan to set
      */
-    public void setEntCdsegplan(Integer entCdsegplan) {
+    public void setEntCdsegplan(Double entCdsegplan) {
         this.entCdsegplan = entCdsegplan;
     }
 }
