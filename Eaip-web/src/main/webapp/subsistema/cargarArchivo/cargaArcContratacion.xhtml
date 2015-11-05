@@ -24,29 +24,35 @@ and open the template in the editor.
             <h:panelGroup  >
 
 
-                <ace:panel header="Cargar archivo #{cMPrepJSFBean.tablaTablaSysArchivoSel.sysArchivo.arcNombre}" style="font-size: 14px; width: 90%">
+                <ace:panel header="Cargar archivo contratación" style="font-size: 14px; width: 90%">
                     <h:panelGrid columns="2">
+                        <h:outputText value="Nombre Archivo" style="font-size: 12px"/>
+                        <ace:simpleSelectOneMenu  value="#{cMPrepJSFBean.intArchivoXCpcIdSel}"
+                                                  valueChangeListener="#{cMPrepJSFBean.ddlArchivosel_ValueChange}"
+                                                  styleClass="combomediano">
+                            <f:selectItems value="#{cMPrepJSFBean.lstItemsArchivo}"/>
+                            <ace:ajax execute="@this" render="@all"/>
+                        </ace:simpleSelectOneMenu>
                         <h:outputText value="Sector Administrativo:" style="font-size: 12px"/>
-                        <ace:simpleSelectOneMenu value="#{cMPrepJSFBean.intSectorAdSel}"
-                                                 valueChangeListener="#{cMPrepJSFBean.ddlSectorAd_ValueChange}"
-                                                 class="combomediano">
+                        <ace:simpleSelectOneMenu  value="#{cMPrepJSFBean.intSectorAdSel}"
+                                                  valueChangeListener="#{cMPrepJSFBean.ddlSectorAd_ValueChange}"
+                                                  class="combomediano">
                             <f:selectItems value="#{cMPrepJSFBean.lstItemsSecAdmin}"/>
                             <ace:ajax execute="@this" render="@all"/>
-                        </ace:simpleSelectOneMenu>
+                        </ace:simpleSelectOneMenu >
                         <h:outputText value="Sector Estructura:" style="font-size: 12px"/>
-                        <ace:simpleSelectOneMenu value="#{cMPrepJSFBean.intSectorEsSel}"
-                                                 valueChangeListener="#{cMPrepJSFBean.ddlSectorEs_ValueChange}"
-                                                 class="combomediano">
+                        <ace:simpleSelectOneMenu  value="#{cMPrepJSFBean.intSectorEsSel}"
+                                                  valueChangeListener="#{cMPrepJSFBean.ddlSectorEs_ValueChange}"
+                                                  class="combomediano">
                             <f:selectItems value="#{cMPrepJSFBean.lstItemsSecEstructura}"/>
                             <ace:ajax execute="@this" render="@all"/>
-                        </ace:simpleSelectOneMenu>
+                        </ace:simpleSelectOneMenu >
                         <h:outputText value="Entidad:" style="font-size: 12px"/>
-                        <ace:simpleSelectOneMenu value="#{cMPrepJSFBean.strEntIdSel}" 
-                                                 valueChangeListener="#{cMPrepJSFBean.ddlEntidad_ValueChange}"
-                                                 class="combolargo">
+                        <ace:simpleSelectOneMenu  value="#{cMPrepJSFBean.strEntIdSel}" 
+                                                  valueChangeListener="#{cMPrepJSFBean.ddlEntidad_ValueChange}"
+                                                  class="combolargo">
                             <f:selectItems value="#{cMPrepJSFBean.lstItemsEntidad}"/>
-                            <ace:ajax execute="@this" render="@all"/>
-                        </ace:simpleSelectOneMenu>    
+                        </ace:simpleSelectOneMenu>
                         <h:outputText value="Periodo" style="font-size: 12px"/>
                         <ace:maskedEntry  mask="99-9999" value="#{cMPrepJSFBean.lgregPeriodo}">
                             <f:convertDateTime pattern="MM-yyyy" timeZone="GMT-6"/>

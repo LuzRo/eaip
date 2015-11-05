@@ -328,6 +328,9 @@ public class CMPrepJSFBean extends BaseCargaArchivo implements Serializable {
             case "cargarArchivosTH":
                 intArchivoXCpcIdSel = 6;
                 break;
+            case "cargarArchivosContr":
+                intArchivoXCpcIdSel = 8;
+                break;
         }
         cargarNomArchivo();
         //cargarUnidadEjecxEntidad();
