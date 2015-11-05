@@ -302,6 +302,9 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                     case 7:
                         hm.put("p_codigo_entidad", tablaAdmEntidadSel.getAs().getEntCdpredis()); 
                         break;
+                     case 6:
+                        hm.put("p_codigo_entidad", tablaAdmEntidadSel.getAs().getEntCdpredis()); 
+                        break;
                 }
                 break;
             case 1:

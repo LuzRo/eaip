@@ -64,8 +64,9 @@ and open the template in the editor.
                         <h:panelGrid columns="2">
                             <ace:dataTable value="#{reportesProcesosJSFBean.lstTablaSectorAdms}" 
                                            var="itemSa"
-                                           rowsPerPageTemplate="10"
-                                           rows="30"  
+                                           rowsPerPageTemplate="40"
+                                           rows="100"  
+                                           scrollHeight="300"
                                            scrollable="true"                             
                                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"                                       
                                            paginatorPosition="bottom"
