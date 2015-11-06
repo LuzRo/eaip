@@ -311,9 +311,6 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                 switch (strFrecuenciaSel) {
                     case ("Anual"):
                         hm.put("p_ent_id", tablaAdmEntidadSel.getAs().getEntId());
-                        hm.put("p_mes", intMes);
-                        hm.put("p_ano_inicial", intAñoInicial);
-                        hm.put("p_ano_final", intAñoFinal);
                         hm.put("p_ent_nombre", tablaAdmEntidadSel.getAs().getEntNombre());
                         break;
                     case ("Mensual"):
