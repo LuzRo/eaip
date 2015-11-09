@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.veeduria.web.cargaarchivo.aut.th;
+package com.veeduria.web.cargaarchivo.aut.predis;
 
 import com.veeduria.web.cargaarchivo.ICargaArchivo;
 
@@ -11,12 +11,15 @@ import com.veeduria.web.cargaarchivo.ICargaArchivo;
  *
  * @author fercris
  */
-public class CargaContratistas implements ICargaArchivo<Object>{
+public class PredisPlano implements ICargaArchivo<Object>{
 
     @Override
     public void cargarArchivo() {
-       
+        
     }
     
+    private void cargarZipPlanosPredis(){
+     
+    }
     
 }
