@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.veeduria.thm.dao;
 
 import com.veeduria.sys.dao.SysRegistrocarga;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -80,8 +82,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ThmEmpleados.findByEmpFechaafiliacion", query = "SELECT t FROM ThmEmpleados t WHERE t.empFechaafiliacion = :empFechaafiliacion"),
     @NamedQuery(name = "ThmEmpleados.findByEmpTipovinculacion", query = "SELECT t FROM ThmEmpleados t WHERE t.empTipovinculacion = :empTipovinculacion"),
     @NamedQuery(name = "ThmEmpleados.findByEmpDiasotorgadosmes", query = "SELECT t FROM ThmEmpleados t WHERE t.empDiasotorgadosmes = :empDiasotorgadosmes"),
-    @NamedQuery(name = "ThmEmpleados.findByEmpJustificacionpermiso", query = "SELECT t FROM ThmEmpleados t WHERE t.empJustificacionpermiso = :empJustificacionpermiso")})
-
+    @NamedQuery(name = "ThmEmpleados.findByEmpJustificacionpermiso", query = "SELECT t FROM ThmEmpleados t WHERE t.empJustificacionpermiso = :empJustificacionpermiso"),
+    @NamedQuery(name = "ThmEmpleados.findByEmpFechanac", query = "SELECT t FROM ThmEmpleados t WHERE t.empFechanac = :empFechanac"),
+    @NamedQuery(name = "ThmEmpleados.findByEmpFechaing", query = "SELECT t FROM ThmEmpleados t WHERE t.empFechaing = :empFechaing"),
+    @NamedQuery(name = "ThmEmpleados.findByEmpFechaingtexto", query = "SELECT t FROM ThmEmpleados t WHERE t.empFechaingtexto = :empFechaingtexto"),
+    @NamedQuery(name = "ThmEmpleados.findByEmpFechanactexto", query = "SELECT t FROM ThmEmpleados t WHERE t.empFechanactexto = :empFechanactexto")})
 public class ThmEmpleados implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -236,9 +241,36 @@ public class ThmEmpleados implements Serializable {
     @Size(max = 1500)
     @Column(name = "emp_justificacionpermiso")
     private String empJustificacionpermiso;
+    @Column(name = "emp_fechanac")
+    @Temporal(TemporalType.DATE)
+    private Date empFechanac;
+    @Column(name = "emp_fechaing")
+    @Temporal(TemporalType.DATE)
+    private Date empFechaing;
+    @Size(max = 1000)
+    @Column(name = "emp_fechaingtexto")
+    private String empFechaingtexto;
+    @Size(max = 1000)
+    @Column(name = "emp_fechanactexto")
+    private String empFechanactexto;
     @JoinColumn(name = "lgreg_id", referencedColumnName = "lgreg_id")
     @ManyToOne
     private SysRegistrocarga lgregId;
+    @JoinColumn(name = "for_id", referencedColumnName = "for_id")
+    @ManyToOne
+    private ThmRfFormavinculacion forId;
+    @JoinColumn(name = "ene_id", referencedColumnName = "ene_id")
+    @ManyToOne
+    private ThmRfNivelescolaridad eneId;
+    @JoinColumn(name = "enj_id", referencedColumnName = "enj_id")
+    @ManyToOne
+    private ThmRfNiveljerarquico enjId;
+    @JoinColumn(name = "etc_id", referencedColumnName = "etc_id")
+    @ManyToOne
+    private ThmRfTipocargo etcId;
+    @JoinColumn(name = "etd_id", referencedColumnName = "etd_id")
+    @ManyToOne
+    private ThmRfTipodependencia etdId;
 
     public ThmEmpleados() {
     }
@@ -647,12 +679,84 @@ public class ThmEmpleados implements Serializable {
         this.empJustificacionpermiso = empJustificacionpermiso;
     }
 
+    public Date getEmpFechanac() {
+        return empFechanac;
+    }
+
+    public void setEmpFechanac(Date empFechanac) {
+        this.empFechanac = empFechanac;
+    }
+
+    public Date getEmpFechaing() {
+        return empFechaing;
+    }
+
+    public void setEmpFechaing(Date empFechaing) {
+        this.empFechaing = empFechaing;
+    }
+
+    public String getEmpFechaingtexto() {
+        return empFechaingtexto;
+    }
+
+    public void setEmpFechaingtexto(String empFechaingtexto) {
+        this.empFechaingtexto = empFechaingtexto;
+    }
+
+    public String getEmpFechanactexto() {
+        return empFechanactexto;
+    }
+
+    public void setEmpFechanactexto(String empFechanactexto) {
+        this.empFechanactexto = empFechanactexto;
+    }
+
     public SysRegistrocarga getLgregId() {
         return lgregId;
     }
 
     public void setLgregId(SysRegistrocarga lgregId) {
         this.lgregId = lgregId;
+    }
+
+    public ThmRfFormavinculacion getForId() {
+        return forId;
+    }
+
+    public void setForId(ThmRfFormavinculacion forId) {
+        this.forId = forId;
+    }
+
+    public ThmRfNivelescolaridad getEneId() {
+        return eneId;
+    }
+
+    public void setEneId(ThmRfNivelescolaridad eneId) {
+        this.eneId = eneId;
+    }
+
+    public ThmRfNiveljerarquico getEnjId() {
+        return enjId;
+    }
+
+    public void setEnjId(ThmRfNiveljerarquico enjId) {
+        this.enjId = enjId;
+    }
+
+    public ThmRfTipocargo getEtcId() {
+        return etcId;
+    }
+
+    public void setEtcId(ThmRfTipocargo etcId) {
+        this.etcId = etcId;
+    }
+
+    public ThmRfTipodependencia getEtdId() {
+        return etdId;
+    }
+
+    public void setEtdId(ThmRfTipodependencia etdId) {
+        this.etdId = etdId;
     }
 
     @Override
@@ -669,10 +773,7 @@ public class ThmEmpleados implements Serializable {
             return false;
         }
         ThmEmpleados other = (ThmEmpleados) object;
-        if ((this.empId == null && other.empId != null) || (this.empId != null && !this.empId.equals(other.empId))) {
-            return false;
-        }
-        return true;
+        return !((this.empId == null && other.empId != null) || (this.empId != null && !this.empId.equals(other.empId)));
     }
 
     @Override
