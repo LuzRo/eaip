@@ -323,7 +323,6 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                 break;
             case 3:
                 hm.put("p_sad_id", tablaSectorAdmSel.getAs().getSadId());
-                hm.put("p_sectornombre", tablaSectorAdmSel.getAs().getSadNombre());
                 break;
             case 4:
                 hm.put("p_fecha_ini", fecha_ini);
