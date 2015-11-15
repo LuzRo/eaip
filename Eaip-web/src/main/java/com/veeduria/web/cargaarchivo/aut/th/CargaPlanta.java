@@ -6,6 +6,8 @@
 package com.veeduria.web.cargaarchivo.aut.th;
 
 import com.veeduria.sys.ejb.VigilarCarpetaSLBean;
+import com.veeduria.web.cargaarchivo.BaseCargaArchivo;
+import com.veeduria.web.cargaarchivo.BaseCargaMasiva;
 import com.veeduria.web.cargaarchivo.ICargaArchivo;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,7 +30,7 @@ import org.apache.poi.ss.usermodel.Row;
  *
  * @author fercris
  */
-public class CargaPlanta implements ICargaArchivo<Object> {
+public class CargaPlanta extends BaseCargaMasiva implements ICargaArchivo<Object> {
 
     @Override
     public void cargarArchivo() {

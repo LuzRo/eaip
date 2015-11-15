@@ -38,10 +38,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -76,7 +76,8 @@ public class SysRegistrocarga implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "sys_registrocarga_lgreg_id_seq",sequenceName = "sys_registrocarga_lgreg_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sys_registrocarga_lgreg_id_seq")
     @Basic(optional = false)
     @Column(name = "lgreg_id")
     private Long lgregId;
@@ -333,7 +334,7 @@ public class SysRegistrocarga implements Serializable {
 
     @Override
     public String toString() {
-        return "com.veeduria.adm.dao.SysRegistrocarga[ lgregId=" + lgregId + " ]";
+        return "com.veeduria.sys.dao.SysRegistrocarga[ lgregId=" + lgregId + " ]";
     }
 
     /**

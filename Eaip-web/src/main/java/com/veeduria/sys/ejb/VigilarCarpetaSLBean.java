@@ -6,6 +6,7 @@
 package com.veeduria.sys.ejb;
 
 import com.veeduria.web.base.AplicacionJSFBean;
+import com.veeduria.web.cargaarchivo.aut.predis.CargaPredisPlano;
 import com.veeduria.web.cargaarchivo.aut.th.CargaPlanta;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,8 +30,11 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.AsyncResult;
 import javax.ejb.Asynchronous;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -44,12 +48,21 @@ import org.apache.poi.ss.usermodel.Row;
 @LocalBean
 public class VigilarCarpetaSLBean {
 
+    @PersistenceContext
+    EntityManager em;
+    
+    @EJB
+    CargaPredisPlano cargaPredisPlano;
+    
     @PostConstruct
     public void init() {
-
+   
     }
+    
+    
 
     CargaPlanta cargaPlanta = new CargaPlanta();
+    
 
     private void carpetaVigilada() {
         for (;;) {
@@ -59,6 +72,7 @@ public class VigilarCarpetaSLBean {
 
                 properties.load(AplicacionJSFBean.class.getResourceAsStream("/configuracion/ConfiguracionGeneral.properties"));
                 String rutaCargaMasiva = properties.getProperty("carpetaVigilada");
+                String rutaCarpetaTrabajo = properties.getProperty("carpetaTrabajoPredis");
                 String rutaEaip = rutaCargaMasiva.split(",")[0];
                 Path pathRutaEaip = Paths.get(System.getProperty("user.home"), rutaEaip);
                 if (!Files.exists(pathRutaEaip)) {
@@ -66,14 +80,21 @@ public class VigilarCarpetaSLBean {
                 }
                 if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")) {
                     rutaCargaMasiva = rutaCargaMasiva.replace(",", "\\");
+                    rutaCarpetaTrabajo = rutaCarpetaTrabajo.replace(",", "\\");
                 } else {
                     rutaCargaMasiva = rutaCargaMasiva.replace(",", "/");
+                    rutaCarpetaTrabajo = rutaCarpetaTrabajo.replace(",", "/");
                 }
 
                 Path rutaCarpetaVigilada = Paths.get(System.getProperty("user.home"), rutaCargaMasiva);
                 if (!Files.exists(rutaCarpetaVigilada)) {
                     Files.createDirectory(rutaCarpetaVigilada);
                 }
+                Path pathRutaCarpetaTrabajo = Paths.get(System.getProperty("user.home"), rutaCarpetaTrabajo);
+                if (!Files.exists(pathRutaCarpetaTrabajo)) {
+                    Files.createDirectory(pathRutaCarpetaTrabajo);
+                }
+
                 WatchService watcher = rutaCarpetaVigilada.getFileSystem().newWatchService();
                 rutaCarpetaVigilada.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
 
@@ -81,12 +102,23 @@ public class VigilarCarpetaSLBean {
 
                 List<WatchEvent< ?>> events = watckKey.pollEvents();
                 for (WatchEvent<?> event : events) {
-                     System.out.println("Archivo creado '" + event.context().toString() + "'.");
-                    System.out.println("Ruta completa: " + rutaCarpetaVigilada.toString() + "/"+ event.context().toString());
-                    cargaPlanta.cargarArchivoEmpleados(Paths.get(rutaCarpetaVigilada.toString() , event.context().toString() ));
+                    System.out.println("Archivo creado '" + event.context().toString() + "'.");
+                    System.out.println("Ruta completa: " + rutaCarpetaVigilada.toString() + "/" + event.context().toString());
+                    if (event.context().toString().endsWith(".xls")) {
+                     
+                        cargaPlanta.cargarArchivoEmpleados(Paths.get(rutaCarpetaVigilada.toString(), event.context().toString()));
+                    }
+                    if (event.context().toString().endsWith(".zip")) {
+                        
+                        cargaPredisPlano.setNombreArchivo(event.context().toString());
+                        Path rutaZip = Paths.get(rutaCarpetaVigilada.toString(), event.context().toString());
+                        cargaPredisPlano.unzip(rutaZip.toString(), pathRutaCarpetaTrabajo.toString());
+                        cargaPredisPlano.setRutaCarpetaTrabajo(pathRutaCarpetaTrabajo);
+                        cargaPredisPlano.leerPlanoPredis(Paths.get(rutaCarpetaVigilada.toString(), event.context().toString()));
+//                       cargaPredisPlano.procesarArchivo();
+                    }
+
                 }
-               
-                   
 
 //                try {
 //                    HSSFWorkbook workbook = new HSSFWorkbook(Files.newInputStream(Paths.get(rutaCarpetaVigilada.toString(),
@@ -131,8 +163,6 @@ public class VigilarCarpetaSLBean {
 //                } catch (IOException e) {
 //                      Logger.getLogger(VigilarCarpetaSLBean.class.getName()).log(Level.SEVERE, null, e);
 //                }
-                
-
             } catch (InterruptedException | IOException ex) {
                 Logger.getLogger(AplicacionJSFBean.class.getName()).log(Level.SEVERE, null, ex);
             }

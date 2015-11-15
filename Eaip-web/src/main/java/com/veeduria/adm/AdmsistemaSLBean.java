@@ -31,10 +31,7 @@ import javax.persistence.Query;
  */
 @Stateless
 @LocalBean
-public class AdmsistemaSLBean {
-
-    @PersistenceContext
-    EntityManager em;
+public class AdmsistemaSLBean extends BaseEjbSLBean {
 
 //    public List<SysArchivo> getLstArchivos() {
 //
@@ -246,14 +243,6 @@ public class AdmsistemaSLBean {
         Query q = em.createNamedQuery("SysInforme.findByInfEst");
         q.setParameter("infEst", pInfEst);
         return q.getResultList();
-    }
-
-    public Long getNomcargaDuplicados(String pLgregNomarchivocarga, Integer pLgregIdmsjcarga) {
-
-        Query q = em.createNamedQuery("SysRegistrocarga.nomarchcargaporIdcarga");
-        q.setParameter("lgregNomarchivocarga", pLgregNomarchivocarga);
-        q.setParameter("lgregIdmsjcarga", pLgregIdmsjcarga);
-        return (Long) q.getSingleResult();
     }
 
     public List<SysInforme> getDetporNominforme(String pInfNombre) {
