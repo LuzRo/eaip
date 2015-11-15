@@ -186,10 +186,7 @@ public class SysInforme implements Serializable {
             return false;
         }
         SysInforme other = (SysInforme) object;
-        if ((this.infId == null && other.infId != null) || (this.infId != null && !this.infId.equals(other.infId))) {
-            return false;
-        }
-        return true;
+        return !((this.infId == null && other.infId != null) || (this.infId != null && !this.infId.equals(other.infId)));
     }
 
     @Override

@@ -3,10 +3,80 @@
   <persistence-unit name="EIAPEE-ejbPU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbcVeeduria</jta-data-source>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <class>com.veeduria.adm.dao.AdmAjustexvalidacion</class>
+    <class>com.veeduria.adm.dao.AdmComponenteproceso</class>
+    <class>com.veeduria.adm.dao.AdmDefajuste</class>
+    <class>com.veeduria.adm.dao.AdmEntidad</class>
+    <class>com.veeduria.adm.dao.AdmEntiproc</class>
+    <class>com.veeduria.adm.dao.AdmEntxunidadejec</class>
+    <class>com.veeduria.adm.dao.AdmLoginconsistencias</class>
+    <class>com.veeduria.adm.dao.AdmNatjuridica</class>
+    <class>com.veeduria.adm.dao.AdmProceso</class>
+    <class>com.veeduria.adm.dao.AdmSectoradmin</class>
+    <class>com.veeduria.adm.dao.AdmSectorestruc</class>
+    <class>com.veeduria.adm.dao.AdmTipoentidad</class>
+    <class>com.veeduria.adm.dao.AdmUnidadejec</class>
+    <class>com.veeduria.adm.dao.AdmValidacargaarchivo</class>
+    <class>com.veeduria.cnt.dao.CntPlancuetagastos</class>
+    <class>com.veeduria.cnt.dao.CntPlancuetaingreso</class>
+    <class>com.veeduria.not.dao.AdmNotificacion</class>
+    <class>com.veeduria.not.dao.AdmNotxfuncionario</class>
+    <class>com.veeduria.not.dao.PtcDefpuntoscontrol</class>
+    <class>com.veeduria.not.dao.PtcLogpuntocontrol</class>
+    <class>com.veeduria.not.dao.PtcPuntoscontrolxprocesoxfunc</class>
+    <class>com.veeduria.not.dao.PtcTipopuntocontrol</class>
+    <class>com.veeduria.pla.dao.EntInd</class>
+    <class>com.veeduria.pla.dao.EntMpi</class>
+    <class>com.veeduria.pla.dao.Entidad</class>
+    <class>com.veeduria.pla.dao.IndTraspuesta</class>
+    <class>com.veeduria.pla.dao.PlaDistritoind</class>
+    <class>com.veeduria.pla.dao.PlaEntidadesmpi</class>
+    <class>com.veeduria.pla.dao.PlaGeneralsec</class>
+    <class>com.veeduria.pla.dao.PlaLocalidades</class>
+    <class>com.veeduria.pla.dao.PlaTerritorializacion</class>
+    <class>com.veeduria.pre.dao.PreAccionincgasto</class>
+    <class>com.veeduria.pre.dao.PreClaseplancuenta</class>
+    <class>com.veeduria.pre.dao.PreCmgasto</class>
+    <class>com.veeduria.pre.dao.PreCmgastoinconsistencia</class>
+    <class>com.veeduria.pre.dao.PreCmgastoinicial</class>
+    <class>com.veeduria.pre.dao.PreCmgastoiyc</class>
+    <class>com.veeduria.pre.dao.PreCmingreso</class>
+    <class>com.veeduria.pre.dao.PreCmreserva</class>
+    <class>com.veeduria.pre.dao.PreConcmsaldosmovs</class>
+    <class>com.veeduria.pre.dao.PreConoperarecipro</class>
+    <class>com.veeduria.pre.dao.PrePlancuenta</class>
+    <class>com.veeduria.sys.dao.SysArchivo</class>
+    <class>com.veeduria.sys.dao.SysArchivosporentidades</class>
+    <class>com.veeduria.sys.dao.SysFuncionario</class>
+    <class>com.veeduria.sys.dao.SysInforme</class>
+    <class>com.veeduria.sys.dao.SysInfxfrn</class>
+    <class>com.veeduria.sys.dao.SysInfxrol</class>
+    <class>com.veeduria.sys.dao.SysMenuprin</class>
+    <class>com.veeduria.sys.dao.SysModulos</class>
+    <class>com.veeduria.sys.dao.SysRegistrocarga</class>
+    <class>com.veeduria.sys.dao.SysRol</class>
+    <class>com.veeduria.sys.dao.SysRolxfrn</class>
+    <class>com.veeduria.sys.dao.SysSubmodproc</class>
+    <class>com.veeduria.sys.dao.SysSubmodxfrn</class>
+    <class>com.veeduria.sys.dao.SysSubmodxrol</class>
+    <class>com.veeduria.thm.dao.ThmCarrdocente</class>
+    <class>com.veeduria.thm.dao.ThmContratistas</class>
+    <class>com.veeduria.thm.dao.ThmEmpleados</class>
+    <class>com.veeduria.thm.dao.ThmRfFormavinculacion</class>
+    <class>com.veeduria.thm.dao.ThmRfNivelescolaridad</class>
+    <class>com.veeduria.thm.dao.ThmRfNiveljerarquico</class>
+    <class>com.veeduria.thm.dao.ThmRfTipocargo</class>
+    <class>com.veeduria.thm.dao.ThmRfTipodependencia</class>
+    <class>com.veeduria.thm.dao.ThmSupernumerarios</class>
+    <class>com.veeduria.thm.dao.ThmTemporal</class>
+    <class>com.veeduria.thm.dao.ThmTrabajoficiales</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
     <properties>
       <property name="eclipselink.logging.level" value="ALL"/>
+      <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
+      <property name="eclipselink.jdbc.batch-writing.size" value="1000"/>
+      <property name="eclipselink.jdbc.native-sql" value="true"/>
     </properties>
   </persistence-unit>
 </persistence>

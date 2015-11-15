@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.veeduria.thm.dao;
 
 import com.veeduria.sys.dao.SysRegistrocarga;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,12 +19,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author fernando
+ * @author con1ead
  */
 @Entity
 @Table(name = "thm_trabajoficiales")
@@ -69,7 +71,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ThmTrabajoficiales.findByOfiFechaafiliacion", query = "SELECT t FROM ThmTrabajoficiales t WHERE t.ofiFechaafiliacion = :ofiFechaafiliacion"),
     @NamedQuery(name = "ThmTrabajoficiales.findByOfiTipovinculacion", query = "SELECT t FROM ThmTrabajoficiales t WHERE t.ofiTipovinculacion = :ofiTipovinculacion"),
     @NamedQuery(name = "ThmTrabajoficiales.findByOfiDiasotorgadosmes", query = "SELECT t FROM ThmTrabajoficiales t WHERE t.ofiDiasotorgadosmes = :ofiDiasotorgadosmes"),
-    @NamedQuery(name = "ThmTrabajoficiales.findByOfiJustificacionpermiso", query = "SELECT t FROM ThmTrabajoficiales t WHERE t.ofiJustificacionpermiso = :ofiJustificacionpermiso")})
+    @NamedQuery(name = "ThmTrabajoficiales.findByOfiJustificacionpermiso", query = "SELECT t FROM ThmTrabajoficiales t WHERE t.ofiJustificacionpermiso = :ofiJustificacionpermiso"),
+    @NamedQuery(name = "ThmTrabajoficiales.findByOfiFechaing", query = "SELECT t FROM ThmTrabajoficiales t WHERE t.ofiFechaing = :ofiFechaing"),
+    @NamedQuery(name = "ThmTrabajoficiales.findByOfiFechanac", query = "SELECT t FROM ThmTrabajoficiales t WHERE t.ofiFechanac = :ofiFechanac")})
 public class ThmTrabajoficiales implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -191,9 +195,24 @@ public class ThmTrabajoficiales implements Serializable {
     @Size(max = 1500)
     @Column(name = "ofi_justificacionpermiso")
     private String ofiJustificacionpermiso;
+    @Column(name = "ofi_fechaing")
+    @Temporal(TemporalType.DATE)
+    private Date ofiFechaing;
+    @Column(name = "ofi_fechanac")
+    @Temporal(TemporalType.DATE)
+    private Date ofiFechanac;
     @JoinColumn(name = "lgreg_id", referencedColumnName = "lgreg_id")
     @ManyToOne
     private SysRegistrocarga lgregId;
+    @JoinColumn(name = "ene_id", referencedColumnName = "ene_id")
+    @ManyToOne
+    private ThmRfNivelescolaridad eneId;
+    @JoinColumn(name = "enj_id", referencedColumnName = "enj_id")
+    @ManyToOne
+    private ThmRfNiveljerarquico enjId;
+    @JoinColumn(name = "etd_id", referencedColumnName = "etd_id")
+    @ManyToOne
+    private ThmRfTipodependencia etdId;
 
     public ThmTrabajoficiales() {
     }
@@ -514,12 +533,52 @@ public class ThmTrabajoficiales implements Serializable {
         this.ofiJustificacionpermiso = ofiJustificacionpermiso;
     }
 
+    public Date getOfiFechaing() {
+        return ofiFechaing;
+    }
+
+    public void setOfiFechaing(Date ofiFechaing) {
+        this.ofiFechaing = ofiFechaing;
+    }
+
+    public Date getOfiFechanac() {
+        return ofiFechanac;
+    }
+
+    public void setOfiFechanac(Date ofiFechanac) {
+        this.ofiFechanac = ofiFechanac;
+    }
+
     public SysRegistrocarga getLgregId() {
         return lgregId;
     }
 
     public void setLgregId(SysRegistrocarga lgregId) {
         this.lgregId = lgregId;
+    }
+
+    public ThmRfNivelescolaridad getEneId() {
+        return eneId;
+    }
+
+    public void setEneId(ThmRfNivelescolaridad eneId) {
+        this.eneId = eneId;
+    }
+
+    public ThmRfNiveljerarquico getEnjId() {
+        return enjId;
+    }
+
+    public void setEnjId(ThmRfNiveljerarquico enjId) {
+        this.enjId = enjId;
+    }
+
+    public ThmRfTipodependencia getEtdId() {
+        return etdId;
+    }
+
+    public void setEtdId(ThmRfTipodependencia etdId) {
+        this.etdId = etdId;
     }
 
     @Override
@@ -536,10 +595,7 @@ public class ThmTrabajoficiales implements Serializable {
             return false;
         }
         ThmTrabajoficiales other = (ThmTrabajoficiales) object;
-        if ((this.ofiId == null && other.ofiId != null) || (this.ofiId != null && !this.ofiId.equals(other.ofiId))) {
-            return false;
-        }
-        return true;
+        return !((this.ofiId == null && other.ofiId != null) || (this.ofiId != null && !this.ofiId.equals(other.ofiId)));
     }
 
     @Override

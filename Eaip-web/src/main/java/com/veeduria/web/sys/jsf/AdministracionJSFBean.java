@@ -63,6 +63,7 @@ public class AdministracionJSFBean extends BaseJSFBean implements Serializable {
     private TablaSysArchivo tablaSysArchivoSel = new TablaSysArchivo();
     private List<TablaNotif> lstTablaNotifs = new ArrayList<>();
     private TablaNotif tablaNotifSel = new TablaNotif();
+    private Integer cpcId;
     boolean renderNavegacion = false; //si la persona se logea con exito muestra el menu, de lo contrario no.
     private MenuModel menuModel;
     @EJB
@@ -78,7 +79,7 @@ public class AdministracionJSFBean extends BaseJSFBean implements Serializable {
         try {
             Context c = new InitialContext();
             return (SegusrSFBean) c.lookup("java:global/Eaip-web/SegusrSFBean!com.veeduria.sys.ejb.SegusrSFBean");
-           
+
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -305,7 +306,6 @@ public class AdministracionJSFBean extends BaseJSFBean implements Serializable {
     @PostConstruct
     @Override
     public void init() {
-
         cargarTablaArchivos();
 //cargarNotsPendientes();
         renderNavegacion = false;
@@ -318,6 +318,7 @@ public class AdministracionJSFBean extends BaseJSFBean implements Serializable {
         List<String> lstParametros = new ArrayList<>();
         lstParametros.add("5");
         lstParametros.add("6");
+        lstParametros.add("8");
         for (SysArchivo sysArchivo : aslb.getLstArchivosPrespuesto(lstParametros)) {
             TablaSysArchivo tsa = new TablaSysArchivo(sysArchivo);
             lstTablaSysArchivos.add(tsa);
@@ -492,5 +493,19 @@ public class AdministracionJSFBean extends BaseJSFBean implements Serializable {
      */
     public SegusrSFBean getSegusrSFBean() {
         return segusrSFBean;
+    }
+
+    /**
+     * @return the cpcId
+     */
+    public Integer getCpcId() {
+        return cpcId;
+    }
+
+    /**
+     * @param cpcId the cpcId to set
+     */
+    public void setCpcId(Integer cpcId) {
+        this.cpcId = cpcId;
     }
 }

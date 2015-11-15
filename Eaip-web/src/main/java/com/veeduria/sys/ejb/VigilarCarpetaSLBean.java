@@ -50,19 +50,16 @@ public class VigilarCarpetaSLBean {
 
     @PersistenceContext
     EntityManager em;
-    
+
     @EJB
     CargaPredisPlano cargaPredisPlano;
-    
+
     @PostConstruct
     public void init() {
-   
+
     }
-    
-    
 
     CargaPlanta cargaPlanta = new CargaPlanta();
-    
 
     private void carpetaVigilada() {
         for (;;) {
@@ -105,11 +102,11 @@ public class VigilarCarpetaSLBean {
                     System.out.println("Archivo creado '" + event.context().toString() + "'.");
                     System.out.println("Ruta completa: " + rutaCarpetaVigilada.toString() + "/" + event.context().toString());
                     if (event.context().toString().endsWith(".xls")) {
-                     
+
                         cargaPlanta.cargarArchivoEmpleados(Paths.get(rutaCarpetaVigilada.toString(), event.context().toString()));
                     }
                     if (event.context().toString().endsWith(".zip")) {
-                        
+
                         cargaPredisPlano.setNombreArchivo(event.context().toString());
                         Path rutaZip = Paths.get(rutaCarpetaVigilada.toString(), event.context().toString());
                         cargaPredisPlano.unzip(rutaZip.toString(), pathRutaCarpetaTrabajo.toString());

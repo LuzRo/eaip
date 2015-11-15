@@ -108,6 +108,7 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
                     BasicFileAttributes attrs) throws IOException {
 //                  
                 procesarArchivo(file);
+                
 
                 return FileVisitResult.CONTINUE;
             }
@@ -162,10 +163,9 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
                     strBSql.append(sysRegistrocarga.getLgregId());
                     strBSql.append("),");
                     strBSql.append(System.lineSeparator());
-
                 }
-
             }
+           // String strBSqlInsert = em.g
             int i = 0;
         }
 
