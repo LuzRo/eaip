@@ -154,6 +154,12 @@ public class BaseCargaArchivo extends BaseJSFBean {
                             sr.setEjeCodigo(new AdmUnidadejec("03"));
                             sr = aslb.grabarRegistrocarga(sr);
                             break;
+                         case "cargarArchivosContr":
+                            ta = aslb.getArchivosporentidades(strEntIdSel, getAdministracionJSFBean().getTablaSysArchivoSel().getSysArchivo().getArcId());
+                            sr.setLgregNomarchivo(ta.getApeNomtabla());
+                            sr.setEjeCodigo(new AdmUnidadejec("03"));
+                            sr = aslb.grabarRegistrocarga(sr);
+                            break;
 
                     }
 
