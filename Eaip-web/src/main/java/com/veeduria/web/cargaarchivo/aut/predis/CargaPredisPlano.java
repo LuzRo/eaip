@@ -44,7 +44,7 @@ import org.postgresql.ds.PGSimpleDataSource;
 
 /**
  *
- * @author fercris
+ * @author luz
  */
 @Stateless
 @LocalBean
