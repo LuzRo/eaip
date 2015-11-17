@@ -454,13 +454,11 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
                             strBSql.append(",");
                             strBSql.append(dato.substring(530, 562).trim().replace(",", ""));
                             strBSql.append(",");
-                            strBSql.append(dato.substring(562, 574).trim().replace(",", ""));
+                            strBSql.append(dato.substring(562, 594).trim().replace(",", ""));
                             strBSql.append(",");
-                            strBSql.append(dato.substring(574, 606).trim().replace(",", ""));
+                            strBSql.append(dato.substring(594, 626).trim().replace(",", ""));
                             strBSql.append(",");
-                            strBSql.append(dato.substring(606, 638).trim().replace(",", ""));
-                            strBSql.append(",");
-                            strBSql.append(dato.substring(638, 650).trim().replace(",", ""));
+                            strBSql.append(dato.substring(626, 658).trim().replace(",", ""));                          
                             strBSql.append(",");
                             strBSql.append(lgregId);
                             strBSql.append("),");
