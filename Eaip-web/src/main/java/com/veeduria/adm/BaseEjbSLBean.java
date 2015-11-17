@@ -6,6 +6,7 @@
 package com.veeduria.adm;
 
 import com.veeduria.adm.dao.AdmEntidad;
+import com.veeduria.sys.dao.SysArchivosporentidades;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
@@ -20,8 +21,6 @@ public abstract class BaseEjbSLBean {
 
     @PersistenceContext
     protected EntityManager em;
-
-  
 
     public Long getNomcargaDuplicados(String pLgregNomarchivocarga, Integer pLgregIdmsjcarga) {
 
@@ -38,6 +37,18 @@ public abstract class BaseEjbSLBean {
                     getSingleResult();
         } catch (NoResultException | NonUniqueResultException ex) {
             return null;
+        }
+    }
+
+    public SysArchivosporentidades getArchivosporentidades(String pEntId, Integer pArcId) {
+        try {
+            Query q = em.createNamedQuery("SysArchivosporentidades.archivosPorEntidades");
+            q.setParameter("entId", pEntId);
+            q.setParameter("arcId", pArcId);
+            return (SysArchivosporentidades) q.getSingleResult();
+        } catch (NoResultException | NonUniqueResultException ex) {
+            return null;
+
         }
     }
 }

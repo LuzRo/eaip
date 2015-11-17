@@ -75,17 +75,7 @@ public class AdmsistemaSLBean extends BaseEjbSLBean {
         return (AdmEntidad) q.getSingleResult();
     }
 
-    public SysArchivosporentidades getArchivosporentidades(String pEntId, Integer pArcId) {
-        try {
-            Query q = em.createNamedQuery("SysArchivosporentidades.archivosPorEntidades");
-            q.setParameter("entId", pEntId);
-            q.setParameter("arcId", pArcId);
-            return (SysArchivosporentidades) q.getSingleResult();
-        } catch (NoResultException | NonUniqueResultException ex) {
-            return null;
-
-        }
-    }
+   
 
     public SysRegistrocarga grabarRegistrocarga(SysRegistrocarga pSysRegistrocarga) {
         AdmEntidad ae = em.getReference(AdmEntidad.class, pSysRegistrocarga.getEntId().getEntId());

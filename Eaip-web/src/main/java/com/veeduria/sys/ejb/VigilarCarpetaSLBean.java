@@ -101,65 +101,35 @@ public class VigilarCarpetaSLBean {
                 for (WatchEvent<?> event : events) {
                     System.out.println("Archivo creado '" + event.context().toString() + "'.");
                     System.out.println("Ruta completa: " + rutaCarpetaVigilada.toString() + "/" + event.context().toString());
+                    String[] arrStrNombreArchivo = event.context().toString().split("_", -1);
                     if (event.context().toString().endsWith(".xls")) {
 
                         cargaPlanta.cargarArchivoEmpleados(Paths.get(rutaCarpetaVigilada.toString(), event.context().toString()));
                     }
                     if (event.context().toString().endsWith(".zip")) {
 
-                        cargaPredisPlano.setNombreArchivo(event.context().toString());
-                        Path rutaZip = Paths.get(rutaCarpetaVigilada.toString(), event.context().toString());
-                        cargaPredisPlano.unzip(rutaZip.toString(), pathRutaCarpetaTrabajo.toString());
-                        cargaPredisPlano.setRutaCarpetaTrabajo(pathRutaCarpetaTrabajo);
-                        cargaPredisPlano.leerPlanoPredis(Paths.get(rutaCarpetaVigilada.toString(), event.context().toString()));
-//                       cargaPredisPlano.procesarArchivo();
+                        if (arrStrNombreArchivo.length == 3) {
+                           
+                            Path rutaZip = Paths.get(rutaCarpetaVigilada.toString(), event.context().toString());
+                          
+                            cargaPredisPlano.unzip(rutaZip.toString(), pathRutaCarpetaTrabajo.toString());
+                            
+
+                            switch (arrStrNombreArchivo[1]) {
+                                case "gastos":
+                                    cargaPredisPlano.leerPlanoPredisGastos(event.context().toString(),pathRutaCarpetaTrabajo);
+                                    break;
+                                case "ingresos":
+                                    cargaPredisPlano.leerPlanoPredisIngresos(event.context().toString(),pathRutaCarpetaTrabajo);
+                                    break;
+                            }
+                        }
+
+//                       cargaPredisPlano.procesarArchivoGastos();
                     }
 
                 }
 
-//                try {
-//                    HSSFWorkbook workbook = new HSSFWorkbook(Files.newInputStream(Paths.get(rutaCarpetaVigilada.toString(),
-//                            event.context().toString())));
-//
-//                    //Get first sheet from the workbook
-//                    HSSFSheet sheet = workbook.getSheetAt(0);
-//
-//                    //Iterate through each rows from first sheet
-//                    Iterator<org.apache.poi.ss.usermodel.Row> rowIterator = sheet.iterator();
-//                    while (rowIterator.hasNext()) {
-//                        Row row = (Row) rowIterator.next();
-//
-//                        //For each row, iterate through each columns
-//                        Iterator<Cell> cellIterator = row.cellIterator();
-//                        while (cellIterator.hasNext()) {
-//
-//                            Cell cell = cellIterator.next();
-//
-//                            switch (cell.getCellType()) {
-//                                case Cell.CELL_TYPE_BOOLEAN:
-//                                    System.out.print(cell.getBooleanCellValue() + "\t\t");
-//                                    break;
-//                                case Cell.CELL_TYPE_NUMERIC:
-//                                    System.out.print(cell.getNumericCellValue() + "\t\t");
-//                                    break;
-//                                case Cell.CELL_TYPE_STRING:
-//                                    System.out.print(cell.getStringCellValue() + "\t\t");
-//                                    break;
-//                                    
-//                            }
-//                        }
-//                        System.out.println("");
-//                    }
-//
-//                    FileOutputStream out
-//                            = new FileOutputStream(new File(System.getProperty("user.home")+ File.separator + "test.xls"));
-//                    workbook.write(out);
-//                    out.close();
-//                } catch (FileNotFoundException e) {
-//                      Logger.getLogger(VigilarCarpetaSLBean.class.getName()).log(Level.SEVERE, null, e);
-//                } catch (IOException e) {
-//                      Logger.getLogger(VigilarCarpetaSLBean.class.getName()).log(Level.SEVERE, null, e);
-//                }
             } catch (InterruptedException | IOException ex) {
                 Logger.getLogger(AplicacionJSFBean.class.getName()).log(Level.SEVERE, null, ex);
             }
