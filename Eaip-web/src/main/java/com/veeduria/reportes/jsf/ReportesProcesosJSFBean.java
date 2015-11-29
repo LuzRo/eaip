@@ -108,6 +108,7 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
         numPanel = 1;
 
         cargarSectores();
+       // cargarCompProc();
         cargarEntidad();
         cargarSectoradm();
         cargarUnidadEjec();
@@ -130,6 +131,11 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                 cargarDetTablaInfXIdComp();
                 break;
             case 4:
+                proIdSel = 2;
+                cargarCompProc();
+                cargarEntidad();
+                break;
+            case 5:
                 cargarDetTablaInf();
         }
 
@@ -151,6 +157,7 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
 
     @Override
     public void limpiarVariables() {
+        lstItemsAdmComp.clear();
         lstSectorEstr.clear();
         intSectorEstr = -1;
         lstSectorAdm.clear();
@@ -158,6 +165,7 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
         strUnidadEjecSel = "-1";
         strFrecuenciaSel = "-1";
         comIdSel = -1;
+        proIdSel = -1;
         fecha_ini = null;
         fecha_fin = null;
         intAño = -1;
@@ -197,9 +205,9 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
     private void cargarCompProc() {
         lstItemsAdmComp.clear();
         lstItemsAdmComp.add(itemSeleccioneInt);
-        for (AdmComponenteproceso ac : aslb.getLstCompProcXProceso(proIdSel)) {
+        aslb.getLstCompProcXProceso(proIdSel).stream().forEach((ac) -> {
             lstItemsAdmComp.add(new SelectItem(ac.getComId(), ac.getComNombre()));
-        }
+        });
     }
 //</editor-fold>
 
@@ -300,10 +308,10 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                         hm.put("p_ano_final", intAñoFinal);
                         break;
                     case 7:
-                        hm.put("p_codigo_entidad", tablaAdmEntidadSel.getAs().getEntCdpredis()); 
+                        hm.put("p_codigo_entidad", tablaAdmEntidadSel.getAs().getEntCdpredis());
                         break;
-                     case 6:
-                        hm.put("p_codigo_entidad", tablaAdmEntidadSel.getAs().getEntCdpredis()); 
+                    case 6:
+                        hm.put("p_codigo_entidad", tablaAdmEntidadSel.getAs().getEntCdpredis());
                         break;
                 }
                 break;
@@ -325,6 +333,11 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                 hm.put("p_sad_id", tablaSectorAdmSel.getAs().getSadId());
                 break;
             case 4:
+                hm.put("p_ent_id", tablaAdmEntidadSel.getAs().getEntId());
+                hm.put("p_ent_nombre", tablaAdmEntidadSel.getAs().getEntNombre());
+                hm.put("p_ano", intAño);
+                break;
+            case 5:
                 hm.put("p_fecha_ini", fecha_ini);
                 hm.put("p_fecha_fin", fecha_fin);
                 break;
@@ -615,7 +628,14 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                 cargarCompProc();
                 cargarSectoradm();
 //                cargarTablaInf();
+                break;
             case 4:
+                lstTablaInformes.clear();
+                proIdSel = 2;
+                cargarCompProc();
+                cargarEntidad();
+                break;
+            case 5:
                 lstTablaInformes.clear();
                 proIdSel = 8;
                 cargarDetTablaInf();

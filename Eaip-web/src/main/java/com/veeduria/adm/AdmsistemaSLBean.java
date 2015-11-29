@@ -19,10 +19,6 @@ import com.veeduria.sys.dao.SysArchivosporentidades;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**

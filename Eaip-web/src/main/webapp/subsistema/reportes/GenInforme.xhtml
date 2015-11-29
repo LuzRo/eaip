@@ -24,6 +24,9 @@
                 <ui:include src="panelPresupuesto.xhtml"/>
             </h:panelGroup>
             <h:panelGroup  rendered="#{reportesProcesosJSFBean.numPanel == 4 ? true : false}">
+                <ui:include src="panelContratacion.xhtml"/>
+            </h:panelGroup>
+            <h:panelGroup  rendered="#{reportesProcesosJSFBean.numPanel == 5 ? true : false}">
                 <ui:include src="panelGenInforme.xhtml"/>
             </h:panelGroup>
         </ui:define>

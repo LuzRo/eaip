@@ -34,6 +34,12 @@ and open the template in the editor.
                     <f:ajax execute="@this" render="@all"/>
                 </h:selectOneRadio>
                 <h:selectOneRadio value="#{reportesProcesosJSFBean.strNominforme}" styleClass="combolargo"
+                                  rendered="#{reportesProcesosJSFBean.numPanel == 5 ? true : false}"
+                                  layout="lineDirection" valueChangeListener="#{reportesProcesosJSFBean.ddlDetporInforme_ValueChange}">
+                    <f:selectItem itemValue="Registro_Cargas" itemLabel="Cargas del Sistema"/>
+                    <f:ajax execute="@this" render="@all"/>
+                </h:selectOneRadio>
+                <h:selectOneRadio value="#{reportesProcesosJSFBean.strNominforme}" styleClass="combolargo"
                                   rendered="#{reportesProcesosJSFBean.numPanel == 4 ? true : false}"
                                   layout="lineDirection" valueChangeListener="#{reportesProcesosJSFBean.ddlDetporInforme_ValueChange}">
                     <f:selectItem itemValue="Registro_Cargas" itemLabel="Cargas del Sistema"/>
@@ -169,7 +175,7 @@ and open the template in the editor.
                     </h:panelGrid>
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:panelGrid columns="2" rendered="#{reportesProcesosJSFBean.numPanel==4 ? true : false}">
+                    <h:panelGrid columns="2" rendered="#{reportesProcesosJSFBean.numPanel==5 ? true : false}">
                         <h:panelGrid  columns="2">
                             <f:facet name="header">
                                 <h:panelGroup style="float: left;font-weight: bold; color: black;">

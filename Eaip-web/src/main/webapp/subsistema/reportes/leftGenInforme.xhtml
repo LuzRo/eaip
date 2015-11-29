@@ -11,7 +11,7 @@ and open the template in the editor.
        xmlns:h="http://java.sun.com/jsf/html"
        xmlns:icecore="http://www.icefaces.org/icefaces/core"
        xmlns:ace="http://www.icefaces.org/icefaces/components"
-       xmlns:ice="http://www.icesoft.com/icefaces/component">
+       >
     <ui:insert name="paneLeftGenInforme">
         <ace:accordion collapsible="true" autoHeight="false" event="click" effect="fade" style="font-size: 11px;">
             <ace:accordionPane title="Reportes" >
@@ -22,7 +22,7 @@ and open the template in the editor.
                                    styleClass="#{reportesProcesosJSFBean.numPanel == 1 ? 'btnNavLateralSel' : 'btnNavLateral'}">
                         <f:attribute name="jsfBean" value="reportesProcesosJSFBean"/>
                         <f:attribute name="numPanel" value="1"/>
-                       
+
                     </h:commandLink>
                     <h:commandLink immediate="true"   
                                    value="Planeación"
@@ -30,7 +30,7 @@ and open the template in the editor.
                                    styleClass="#{reportesProcesosJSFBean.numPanel == 2 ? 'btnNavLateralSel' : 'btnNavLateral'}">
                         <f:attribute name="jsfBean" value="reportesProcesosJSFBean"/>
                         <f:attribute name="numPanel" value="2"/> 
-                          
+
                     </h:commandLink>
                     <h:commandLink immediate="true"   
                                    value="Talento Humano"
@@ -40,11 +40,18 @@ and open the template in the editor.
                         <f:attribute name="numPanel" value="3"/>                      
                     </h:commandLink>
                     <h:commandLink immediate="true"   
-                                   value="Reportes del sistema"
+                                   value="Contratacion"
                                    actionListener="#{reportesProcesosJSFBean.navegacionLateral_ActionEvent}"
                                    styleClass="#{reportesProcesosJSFBean.numPanel == 4 ? 'btnNavLateralSel' : 'btnNavLateral'}">
                         <f:attribute name="jsfBean" value="reportesProcesosJSFBean"/>
                         <f:attribute name="numPanel" value="4"/>                      
+                    </h:commandLink>
+                    <h:commandLink immediate="true"   
+                                   value="Reportes del sistema"
+                                   actionListener="#{reportesProcesosJSFBean.navegacionLateral_ActionEvent}"
+                                   styleClass="#{reportesProcesosJSFBean.numPanel == 5 ? 'btnNavLateralSel' : 'btnNavLateral'}">
+                        <f:attribute name="jsfBean" value="reportesProcesosJSFBean"/>
+                        <f:attribute name="numPanel" value="5"/>                      
                     </h:commandLink>
                 </h:panelGrid>
             </ace:accordionPane>
