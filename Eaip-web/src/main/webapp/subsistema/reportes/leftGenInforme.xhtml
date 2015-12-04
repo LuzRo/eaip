@@ -47,11 +47,18 @@ and open the template in the editor.
                         <f:attribute name="numPanel" value="4"/>                      
                     </h:commandLink>
                     <h:commandLink immediate="true"   
-                                   value="Reportes del sistema"
+                                   value="Contabilidad"
                                    actionListener="#{reportesProcesosJSFBean.navegacionLateral_ActionEvent}"
                                    styleClass="#{reportesProcesosJSFBean.numPanel == 5 ? 'btnNavLateralSel' : 'btnNavLateral'}">
                         <f:attribute name="jsfBean" value="reportesProcesosJSFBean"/>
                         <f:attribute name="numPanel" value="5"/>                      
+                    </h:commandLink>
+                    <h:commandLink immediate="true"   
+                                   value="Reportes del sistema"
+                                   actionListener="#{reportesProcesosJSFBean.navegacionLateral_ActionEvent}"
+                                   styleClass="#{reportesProcesosJSFBean.numPanel == 6 ? 'btnNavLateralSel' : 'btnNavLateral'}">
+                        <f:attribute name="jsfBean" value="reportesProcesosJSFBean"/>
+                        <f:attribute name="numPanel" value="6"/>                      
                     </h:commandLink>
                 </h:panelGrid>
             </ace:accordionPane>

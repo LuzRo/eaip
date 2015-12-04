@@ -40,7 +40,7 @@ and open the template in the editor.
                     <f:ajax execute="@this" render="@all"/>
                 </h:selectOneRadio>
                 <h:selectOneRadio value="#{reportesProcesosJSFBean.strNominforme}" styleClass="combolargo"
-                                  rendered="#{reportesProcesosJSFBean.numPanel == 4 ? true : false}"
+                                  rendered="#{reportesProcesosJSFBean.numPanel == 6 ? true : false}"
                                   layout="lineDirection" valueChangeListener="#{reportesProcesosJSFBean.ddlDetporInforme_ValueChange}">
                     <f:selectItem itemValue="Registro_Cargas" itemLabel="Cargas del Sistema"/>
                     <f:ajax execute="@this" render="@all"/>

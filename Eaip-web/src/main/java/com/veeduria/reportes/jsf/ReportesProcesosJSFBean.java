@@ -6,7 +6,6 @@ package com.veeduria.reportes.jsf;
 
 //import com.icesoft.faces.context.Resource;
 import com.veeduria.adm.AdmsistemaSLBean;
-import com.veeduria.adm.dao.AdmComponenteproceso;
 import com.veeduria.adm.dao.AdmEntidad;
 //import com.veeduria.adm.dao.AdmComponenteproceso;
 import com.veeduria.adm.dao.AdmSectoradmin;
@@ -108,7 +107,6 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
         numPanel = 1;
 
         cargarSectores();
-       // cargarCompProc();
         cargarEntidad();
         cargarSectoradm();
         cargarUnidadEjec();
@@ -134,9 +132,17 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                 proIdSel = 2;
                 cargarCompProc();
                 cargarEntidad();
+                cargarDetTablaInfXIdComp();
                 break;
             case 5:
+                proIdSel = 9;
+                cargarCompProc();
+                cargarSectoradm();
+                cargarDetTablaInfXIdComp();
+                break;
+            case 6:
                 cargarDetTablaInf();
+                break;
         }
 
         //strPagId = getPrincipalJSFBean().getNavegacion();
@@ -338,6 +344,12 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                 hm.put("p_ano", intAño);
                 break;
             case 5:
+                hm.put("p_sad_id", tablaSectorAdmSel.getAs().getSadId());
+                hm.put("p_sectornombre", tablaSectorAdmSel.getAs().getSadNombre());
+                hm.put("p_ano_inicial", intAñoInicial);
+                hm.put("p_ano_final", intAñoFinal);
+                break;
+            case 6:
                 hm.put("p_fecha_ini", fecha_ini);
                 hm.put("p_fecha_fin", fecha_fin);
                 break;
@@ -612,7 +624,6 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                 lstTablaInformes.clear();
                 proIdSel = 1;
                 cargarCompProc();
-                //cargarSectoradm();
                 cargarInfXCompXFrecuencia();
                 cargarEntidad();
                 break;
@@ -627,7 +638,6 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                 proIdSel = 5;
                 cargarCompProc();
                 cargarSectoradm();
-//                cargarTablaInf();
                 break;
             case 4:
                 lstTablaInformes.clear();
@@ -637,8 +647,15 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                 break;
             case 5:
                 lstTablaInformes.clear();
+                proIdSel = 9;
+                cargarCompProc();
+                cargarSectoradm();
+                break;
+            case 6:
+                lstTablaInformes.clear();
                 proIdSel = 8;
                 cargarDetTablaInf();
+                break;
         }
 
     }

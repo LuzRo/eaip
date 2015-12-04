@@ -306,7 +306,7 @@ public abstract class BaseJSFBean implements Serializable {
                         exporterCSV.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, true);
                         exporterCSV.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF8");
                         exporterCSV.exportReport();
-                        jrResourceRetorna = new RecursoDescarga(baos.toByteArray(), "application/xls", pAdmInforme.getInfNombre() );
+                        jrResourceRetorna = new RecursoDescarga(baos.toByteArray(), "application/xls", pAdmInforme.getInfNombre());
                         break;
 
                     case 5:
