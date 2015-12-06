@@ -70,7 +70,7 @@
     <class>com.veeduria.thm.dao.ThmSupernumerarios</class>
     <class>com.veeduria.thm.dao.ThmTemporal</class>
     <class>com.veeduria.thm.dao.ThmTrabajoficiales</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
     <properties>
       <property name="eclipselink.logging.level" value="INFO"/>

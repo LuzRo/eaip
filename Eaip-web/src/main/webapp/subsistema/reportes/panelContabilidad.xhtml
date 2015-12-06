@@ -27,8 +27,9 @@ and open the template in the editor.
             <h:panelGroup>
                 <ace:dataTable value="#{reportesProcesosJSFBean.lstTablaInformes}"
                                var="item"                                    
-                               rowsPerPageTemplate="10"
-                               rows="30"  
+                               rowsPerPageTemplate="40"
+                               rows="20"  
+                               scrollHeight="350"
                                scrollable="true"                             
                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"                                       
                                paginatorPosition="bottom"
@@ -47,8 +48,8 @@ and open the template in the editor.
                                                      rendered="#{reportesProcesosJSFBean.numPanel==5 ? true : false}"
                                                      valueChangeListener="#{reportesProcesosJSFBean.ddlDetTipoSel_VCE}">
                                 <f:selectItem itemValue="-1" itemLabel="Seleccione>>"/>
-                                <f:selectItem itemValue="por Sector" itemLabel="por Sector"/>
-                                <f:selectItem itemValue="por Entidad" itemLabel="por Entidad"/>
+                                <f:selectItem itemValue="por Sector" itemLabel="Sector"/>
+                                <f:selectItem itemValue="por Entidad" itemLabel="Entidad"/>
                                 <f:selectItem itemValue="1" itemLabel="Todos"/>
                                 <ace:ajax execute="@this" render="@all"/>
 
@@ -74,36 +75,94 @@ and open the template in the editor.
             </h:panelGroup>
             <h:panelGroup>
                 <h:panelGroup  rendered="#{reportesProcesosJSFBean.numPanel== 5 ? true : false}">
-                    <h:panelGrid columns="2">
-                        <ace:dataTable value="#{reportesProcesosJSFBean.lstTablaSectorAdms}" 
-                                       var="itemSa"
-                                       rowsPerPageTemplate="40"
-                                       rows="100"  
-                                       scrollHeight="300"
-                                       scrollable="true"                             
-                                       paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"                                       
-                                       paginatorPosition="bottom"
-                                       currentPageReportTemplate="(Reportes: {startRecord} - {endRecord} de {totalRecords}, Página: {currentPage}/{totalPages})"
-                                       style="font-size: 12px"
-                                       >
-                            <ace:column style=" width: 60px">                           
-                                <h:commandLink value=">>>" actionListener="#{reportesProcesosJSFBean.rowDtSectAdmSel_ActionEvent}"
-                                               styleClass="#{itemSa.claseSel}"
-                                               style="font-size: 12px">
-                                    <f:attribute name="tablaSectorAdmSel" value="#{itemSa}"/>
-                                </h:commandLink>
-                            </ace:column>
-                            <ace:column  style=" width: 270px">
-                                <f:facet name="header">
-                                    <h:outputText value="Sector" style="font-size: 13px"/>
-                                </f:facet>
-                                <h:outputText value="#{itemSa.as.sadNombre}" 
-                                              styleClass="outputTextContTabla textcolumleft #{itemSa.claseSel}"
-                                              />
-                            </ace:column>
-                        </ace:dataTable> 
-                    </h:panelGrid>
-                    <ace:panel header="Parámetros">
+
+                    <ace:panel header="Parámetros" rendered="#{reportesProcesosJSFBean.strTipo == 'por Sector' ? true : false}" >
+                        <h:panelGrid columns="2">
+                            <ace:dataTable value="#{reportesProcesosJSFBean.lstTablaSectorAdms}" 
+                                           var="itemSa"
+                                           rowsPerPageTemplate="40"
+                                           rows="100"  
+                                           scrollHeight="300"
+                                           scrollable="true"                             
+                                           paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"                                       
+                                           paginatorPosition="bottom"
+                                           currentPageReportTemplate="(Reportes: {startRecord} - {endRecord} de {totalRecords}, Página: {currentPage}/{totalPages})"
+                                           style="font-size: 12px"
+                                           >
+                                <ace:column style=" width: 60px">                           
+                                    <h:commandLink value=">>>" actionListener="#{reportesProcesosJSFBean.rowDtSectAdmSel_ActionEvent}"
+                                                   styleClass="#{itemSa.claseSel}"
+                                                   style="font-size: 12px">
+                                        <f:attribute name="tablaSectorAdmSel" value="#{itemSa}"/>
+                                    </h:commandLink>
+                                </ace:column>
+                                <ace:column  style=" width: 270px">
+                                    <f:facet name="header">
+                                        <h:outputText value="Sector" style="font-size: 13px"/>
+                                    </f:facet>
+                                    <h:outputText value="#{itemSa.as.sadNombre}" 
+                                                  styleClass="outputTextContTabla textcolumleft #{itemSa.claseSel}"
+                                                  />
+                                </ace:column>
+                            </ace:dataTable> 
+                        </h:panelGrid>
+                        <h:outputText value="Año Inicial:" style="font-size: 12px"/>                        
+                        <h:selectOneMenu value="#{reportesProcesosJSFBean.intAñoInicial}"
+                                         styleClass="combocorto">
+                            <f:selectItem itemValue="-1" itemLabel="SELECCIONE>>"/>
+                            <f:selectItem itemValue="2012" itemLabel="2012"/>
+                            <f:selectItem itemValue="2013" itemLabel="2013"/>
+                            <f:selectItem itemValue="2014" itemLabel="2014"/>
+                            <f:selectItem itemValue="2015" itemLabel="2015"/>
+                            <f:selectItem itemValue="2016" itemLabel="2016"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Año Final:" style="font-size: 12px"/>                        
+                        <h:selectOneMenu value="#{reportesProcesosJSFBean.intAñoFinal}"
+                                         styleClass="combocorto">
+                            <f:selectItem itemValue="-1" itemLabel="SELECCIONE>>"/>
+                            <f:selectItem itemValue="2012" itemLabel="2012"/>
+                            <f:selectItem itemValue="2013" itemLabel="2013"/>
+                            <f:selectItem itemValue="2014" itemLabel="2014"/>
+                            <f:selectItem itemValue="2016" itemLabel="2016"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Mes:" style="font-size: 12px"/>                        
+                        <h:selectOneMenu value="#{reportesProcesosJSFBean.intMes}"
+                                         styleClass="combocorto">
+                            <f:selectItem itemValue="-1" itemLabel="SELECCIONE>>"/>
+                            <f:selectItem itemValue="6" itemLabel="6"/>
+                            <f:selectItem itemValue="12" itemLabel="12"/>
+                        </h:selectOneMenu>
+                    </ace:panel>
+                    <ace:panel header="Parámetros" rendered="#{reportesProcesosJSFBean.strTipo == 'por Entidad' ? true : false}" >
+                        <h:panelGrid columns="2">
+                            <ace:dataTable value="#{reportesProcesosJSFBean.lstTablaAdmEntidad}" 
+                                           var="itemAe"
+                                           rowsPerPageTemplate="40"
+                                           rows="150"  
+                                           scrollHeight="300"
+                                           scrollable="true"                             
+                                           paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"                                       
+                                           paginatorPosition="bottom"
+                                           currentPageReportTemplate="(Reportes: {startRecord} - {endRecord} de {totalRecords}, Página: {currentPage}/{totalPages})"
+                                           style="font-size: 12px"
+                                           >
+                                <ace:column style=" width: 60px">                           
+                                    <h:commandLink value=">>>" actionListener="#{reportesProcesosJSFBean.rowDtAdmEntidadSel_ActionEvent}"
+                                                   styleClass="#{itemAe.claseSel}"
+                                                   style="font-size: 12px">
+                                        <f:attribute name="tablaAdmEntidadSel" value="#{itemAe}"/>
+                                    </h:commandLink>
+                                </ace:column>
+                                <ace:column  style=" width: 400px">
+                                    <f:facet name="header">
+                                        <h:outputText value="Entidad" style="font-size: 13px"/>
+                                    </f:facet>
+                                    <h:outputText value="#{itemAe.as.entNombre}" 
+                                                  styleClass="outputTextContTabla textcolumleft #{itemAe.claseSel}"
+                                                  />
+                                </ace:column>
+                            </ace:dataTable> 
+                        </h:panelGrid>
                         <h:outputText value="Año Inicial:" style="font-size: 12px"/>                        
                         <h:selectOneMenu value="#{reportesProcesosJSFBean.intAñoInicial}"
                                          styleClass="combocorto">
