@@ -13,7 +13,7 @@ import java.util.Objects;
 
 /**
  *
- * @author con1ead
+ * @author luz
  */
 public class TablaSysArchivosporEntidades extends TablaBaseFrm{
     

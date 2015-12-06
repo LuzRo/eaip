@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 public class TablaLogIncons extends TablaBaseFrm {
     private AdmLoginconsistencias al = new AdmLoginconsistencias();

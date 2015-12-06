@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream;
 
 /**
  *
- * @author luis
+ * @author luz
  */
 public class BinarioInforme {
 

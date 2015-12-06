@@ -29,7 +29,7 @@ import org.joda.time.DateTimeFieldType;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 
 public abstract class ProcCargadosFasesBase extends BaseJSFBean implements Serializable {

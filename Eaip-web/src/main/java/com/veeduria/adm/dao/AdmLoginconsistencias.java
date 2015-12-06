@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 @Entity
 @Table(name = "adm_loginconsistencias")

@@ -7,7 +7,7 @@ package com.veeduria.web.cargaarchivo;
 
 /**
  *
- * @author con1ead
+ * @author luz
  * @param <T>
  */
 public interface ICargaArchivo<T> {

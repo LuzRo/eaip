@@ -28,7 +28,7 @@ import org.joda.time.DateTimeFieldType;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 @SessionScoped
 @Named

@@ -22,7 +22,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 @Stateful
 @LocalBean

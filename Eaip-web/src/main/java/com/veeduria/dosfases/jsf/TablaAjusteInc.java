@@ -10,7 +10,7 @@ import com.veeduria.web.base.TablaBaseFrm;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 public class TablaAjusteInc extends TablaBaseFrm {
 

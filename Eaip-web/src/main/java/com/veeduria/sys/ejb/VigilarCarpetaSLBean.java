@@ -8,20 +8,14 @@ package com.veeduria.sys.ejb;
 import com.veeduria.web.base.AplicacionJSFBean;
 import com.veeduria.web.cargaarchivo.aut.predis.CargaPredisPlano;
 import com.veeduria.web.cargaarchivo.aut.th.CargaPlanta;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardWatchEventKinds;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Future;
@@ -35,14 +29,10 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 
 /**
  *
- * @author fercris
+ * @author luz
  */
 @Stateless
 @LocalBean
@@ -61,7 +51,7 @@ public class VigilarCarpetaSLBean {
 
     CargaPlanta cargaPlanta = new CargaPlanta();
 
-    private void carpetaVigilada() {
+    private void carpetaVigilada() throws InterruptedException {
         for (;;) {
 
             try {
@@ -92,15 +82,16 @@ public class VigilarCarpetaSLBean {
                     Files.createDirectory(pathRutaCarpetaTrabajo);
                 }
 
-                WatchService watcher = rutaCarpetaVigilada.getFileSystem().newWatchService();
-                rutaCarpetaVigilada.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
+                WatchService watcher;
+                watcher = pathRutaCarpetaTrabajo.getFileSystem().newWatchService();
+                pathRutaCarpetaTrabajo.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
 
                 WatchKey watckKey = watcher.take();
 
                 List<WatchEvent< ?>> events = watckKey.pollEvents();
                 for (WatchEvent<?> event : events) {
-                    System.out.println("Archivo creado '" + event.context().toString() + "'.");
-                    System.out.println("Ruta completa: " + rutaCarpetaVigilada.toString() + "/" + event.context().toString());
+                    System.out.println("Archivo creado '" + event.context().toString());
+                    System.out.println("Ruta completa: " + pathRutaCarpetaTrabajo.toString() + "/" + event.context().toString());
                     String[] arrStrNombreArchivo = event.context().toString().split("_", -1);
                     if (event.context().toString().endsWith(".xls")) {
 
@@ -110,7 +101,7 @@ public class VigilarCarpetaSLBean {
 
                         if (arrStrNombreArchivo.length == 3) {
                            
-                            Path rutaZip = Paths.get(rutaCarpetaVigilada.toString(), event.context().toString());
+                            Path rutaZip = Paths.get(pathRutaCarpetaTrabajo.toString(), event.context().toString());
                           
                             cargaPredisPlano.unzip(rutaZip.toString(), pathRutaCarpetaTrabajo.toString());
                             
@@ -130,7 +121,7 @@ public class VigilarCarpetaSLBean {
 
                 }
 
-            } catch (InterruptedException | IOException ex) {
+            } catch (IOException ex) {
                 Logger.getLogger(AplicacionJSFBean.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -138,7 +129,7 @@ public class VigilarCarpetaSLBean {
     }
 
     @Asynchronous
-    public Future<String> vigilarCarpeta() {
+    public Future<String> vigilarCarpeta() throws InterruptedException {
         String estado = "";
         carpetaVigilada();
         return new AsyncResult<>(estado);

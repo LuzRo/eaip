@@ -5,36 +5,26 @@
  */
 package com.veeduria.web.not;
 
-import com.veeduria.not.dao.AdmNotificacion;
 import com.veeduria.not.dao.AdmNotxfuncionario;
 import com.veeduria.not.dao.PtcDefpuntoscontrol;
 import com.veeduria.not.dao.PtcPuntoscontrolxprocesoxfunc;
 import com.veeduria.not.dao.PtcTipopuntocontrol;
-import com.veeduria.not.ejb.AdmPuntosCtrlSFBEan;
-import com.veeduria.sys.ejb.CargadosfasesSFBean;
-import com.veeduria.web.base.BaseJSFBean;
 import com.veeduria.web.base.TablaAdmProc;
 import com.veeduria.web.base.TablaSysFunc;
-import com.veeduria.web.not.BaseNotificacion;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 @SessionScoped
 @Named

@@ -12,7 +12,7 @@ import java.util.Objects;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 public class TablaNotif extends TablaBaseFrm {
 

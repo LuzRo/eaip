@@ -8,7 +8,6 @@ package com.veeduria.web.pctrl;
 import com.veeduria.not.dao.PtcLogpuntocontrol;
 import com.veeduria.web.not.BaseNotificacion;
 import com.veeduria.web.not.GestPctrlQLF;
-import com.veeduria.web.not.TablaNotif;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +19,7 @@ import javax.inject.Named;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 @SessionScoped
 @Named

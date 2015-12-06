@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 public abstract class BaseSFBean {
 

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 public class TablaSysFunc extends TablaBaseFrm{
     

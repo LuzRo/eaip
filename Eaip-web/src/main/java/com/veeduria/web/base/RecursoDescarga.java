@@ -8,7 +8,7 @@ package com.veeduria.web.base;
 
 /**
  *
- * @author fercris
+ * @author luz
  */
 public class RecursoDescarga {
     private byte[] byteRecurso ;
