@@ -256,6 +256,7 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
                 String[] arrStrDatosArchivo = nombreArchivo.split("_", -1);
                 String[] arrStrEncabezado = encabezado.trim().split(" ", -1);
                 LocalDate lgregPeriodo = LocalDate.of(Integer.parseInt(arrStrEncabezado[1].replace("=", "")), Integer.parseInt(arrStrEncabezado[5]), 1);
+                System.out.println(lgregPeriodo);
                 Double strCodigoEntPredis = Double.parseDouble(arrStrEncabezado[8]);
                 String entId = "";
 
