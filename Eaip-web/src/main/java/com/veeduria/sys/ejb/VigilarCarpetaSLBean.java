@@ -51,7 +51,7 @@ public class VigilarCarpetaSLBean {
 
     CargaPlanta cargaPlanta = new CargaPlanta();
 
-    private void carpetaVigilada() throws InterruptedException {
+    private void carpetaVigilada() {
         for (;;) {
 
             try {
@@ -100,18 +100,17 @@ public class VigilarCarpetaSLBean {
                     if (event.context().toString().endsWith(".zip")) {
 
                         if (arrStrNombreArchivo.length == 3) {
-                           
+
                             Path rutaZip = Paths.get(pathRutaCarpetaTrabajo.toString(), event.context().toString());
-                          
+
                             cargaPredisPlano.unzip(rutaZip.toString(), pathRutaCarpetaTrabajo.toString());
-                            
 
                             switch (arrStrNombreArchivo[1]) {
                                 case "gastos":
-                                    cargaPredisPlano.leerPlanoPredisGastos(event.context().toString(),pathRutaCarpetaTrabajo);
+                                    cargaPredisPlano.leerPlanoPredisGastos(event.context().toString(), pathRutaCarpetaTrabajo);
                                     break;
                                 case "ingresos":
-                                    cargaPredisPlano.leerPlanoPredisIngresos(event.context().toString(),pathRutaCarpetaTrabajo);
+                                    cargaPredisPlano.leerPlanoPredisIngresos(event.context().toString(), pathRutaCarpetaTrabajo);
                                     break;
                             }
                         }
@@ -121,7 +120,7 @@ public class VigilarCarpetaSLBean {
 
                 }
 
-            } catch (IOException ex) {
+            } catch (InterruptedException | IOException ex) {
                 Logger.getLogger(AplicacionJSFBean.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -129,7 +128,7 @@ public class VigilarCarpetaSLBean {
     }
 
     @Asynchronous
-    public Future<String> vigilarCarpeta() throws InterruptedException {
+    public Future<String> vigilarCarpeta() {
         String estado = "";
         carpetaVigilada();
         return new AsyncResult<>(estado);

@@ -40,10 +40,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "SysInforme.findByIndversion", query = "SELECT s FROM SysInforme s WHERE s.indversion = :indversion"),
     @NamedQuery(name = "SysInforme.findByNumpanel", query = "SELECT s FROM SysInforme s WHERE s.numpanel = :numpanel "),
     @NamedQuery(name = "SysInforme.findByInfFrecuencia", query = "SELECT s FROM SysInforme s WHERE s.infFrecuencia = :infFrecuencia"),
+    @NamedQuery(name = "SysInforme.findByInfTipo", query = "SELECT s FROM SysInforme s WHERE s.infTipo = :infTipo"),
     @NamedQuery(name = "SysInforme.infxFuncionario", query = "SELECT s FROM SysInforme s JOIN s.sysInfxfrnList infr JOIN infr.frnId inf WHERE inf.frnId = :frnId "),
     @NamedQuery(name = "SysInforme.detxNominforme", query = "SELECT s FROM SysInforme s WHERE s.infNombre = :infNombre"),
     @NamedQuery(name = "SysInforme.detxFrecuencia", query = "SELECT s FROM SysInforme s WHERE s.infFrecuencia = :infFrecuencia"),
     @NamedQuery(name = "SysInforme.infXCompXfre", query = "SELECT s FROM SysInforme s JOIN s.comId com WHERE com.comId = :comId AND s.infFrecuencia = :infFrecuencia ORDER BY s.infNombre"),
+    @NamedQuery(name = "SysInforme.infXCompXtipo", query = "SELECT s FROM SysInforme s JOIN s.comId com WHERE com.comId = :comId AND s.infTipo = :infTipo ORDER BY s.infNombre"),
     @NamedQuery(name = "SysInforme.infXComp", query = "SELECT s FROM SysInforme s JOIN s.comId comp WHERE comp.comId = :comId ORDER BY s.infNombre")})
 
 public class SysInforme implements Serializable {
@@ -74,6 +76,9 @@ public class SysInforme implements Serializable {
     @Size(max = 200)
     @Column(name = "inf_frecuencia")
     private String infFrecuencia;
+    @Size(max = 200)
+    @Column(name = "inf_tipo")
+    private String infTipo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "infId")
     private List<SysInfxrol> sysInfxrolList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "infId")
@@ -228,6 +233,20 @@ public class SysInforme implements Serializable {
      */
     public void setInfFrecuencia(String infFrecuencia) {
         this.infFrecuencia = infFrecuencia;
+    }
+
+    /**
+     * @return the infTipo
+     */
+    public String getInfTipo() {
+        return infTipo;
+    }
+
+    /**
+     * @param infTipo the infTipo to set
+     */
+    public void setInfTipo(String infTipo) {
+        this.infTipo = infTipo;
     }
 
 }

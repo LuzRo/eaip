@@ -71,8 +71,6 @@ public class AdmsistemaSLBean extends BaseEjbSLBean {
         return (AdmEntidad) q.getSingleResult();
     }
 
-   
-
     public SysRegistrocarga grabarRegistrocarga(SysRegistrocarga pSysRegistrocarga) {
         AdmEntidad ae = em.getReference(AdmEntidad.class, pSysRegistrocarga.getEntId().getEntId());
         AdmSectorestruc as = em.getReference(AdmSectorestruc.class, pSysRegistrocarga.getSesId().getSesId());
@@ -257,6 +255,12 @@ public class AdmsistemaSLBean extends BaseEjbSLBean {
         return q.getResultList();
     }
 
+    public List<SysInforme> getLstInformeporCompXTipo(Integer pComId, String pInfTipo) {
+        Query q = em.createNamedQuery("SysInforme.infXCompXtipo");
+        q.setParameter("comId", pComId);
+        q.setParameter("infTipo", pInfTipo);
+        return q.getResultList();
+    }
 
     /*public List<SysInforme> getLstNomComponente(String pcomNombre) {
      return em.createNamedQuery("AdmComponenteproceso.findByComNombre").

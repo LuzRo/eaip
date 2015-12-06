@@ -41,6 +41,21 @@ and open the template in the editor.
                             <f:attribute name="tablaInformeSel" value="#{item}"/>
                         </h:commandLink>
                     </ace:column>
+                    <ace:column style="width: 80px">
+                        <f:facet name="header">
+                            <ace:simpleSelectOneMenu value="#{reportesProcesosJSFBean.strTipo}" style="font-size: 12px"
+                                                     rendered="#{reportesProcesosJSFBean.numPanel==5 ? true : false}"
+                                                     valueChangeListener="#{reportesProcesosJSFBean.ddlDetTipoSel_VCE}">
+                                <f:selectItem itemValue="-1" itemLabel="Seleccione>>"/>
+                                <f:selectItem itemValue="por Sector" itemLabel="por Sector"/>
+                                <f:selectItem itemValue="por Entidad" itemLabel="por Entidad"/>
+                                <f:selectItem itemValue="1" itemLabel="Todos"/>
+                                <ace:ajax execute="@this" render="@all"/>
+
+                            </ace:simpleSelectOneMenu>
+                        </f:facet>
+                        <h:outputText value="#{item.sysInforme.infTipo}"/>
+                    </ace:column>
                     <ace:column style=" width: 140px">
                         <f:facet name="header">
                             <h:outputText value="Informe" style="font-size: 13px"/>

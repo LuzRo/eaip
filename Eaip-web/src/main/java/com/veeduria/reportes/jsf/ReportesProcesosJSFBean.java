@@ -94,6 +94,7 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
     private List<SelectItem> lstItemsSysCompxFrecxInf = new ArrayList<>();
     private List<SelectItem> lstItemsSysInfFrecuencia = new ArrayList<>();
     private String strFrecuenciaSel;
+    private String strTipo;
 //</editor-fold>
 
     private String strTituloInf = "";
@@ -201,6 +202,13 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
 
     private void cargarInfXCompXFrecuencia() {
         lstTablaInformes = aslb.getLstInformeporCompXFrecuencia(comIdSel, strFrecuenciaSel).stream().map((e -> {
+            return new TablaInforme(e);
+        })).collect(Collectors.toList());
+
+    }
+
+    private void cargarInfXCompXTipo() {
+        lstTablaInformes = aslb.getLstInformeporCompXTipo(comIdSel, strTipo).stream().map((e -> {
             return new TablaInforme(e);
         })).collect(Collectors.toList());
 
@@ -417,6 +425,16 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
             cargarDetTablaInfXIdComp();
         } else {
             cargarInfXCompXFrecuencia();
+        }
+
+    }
+
+    public void ddlDetTipoSel_VCE(ValueChangeEvent vce) {
+        strTipo = (String) vce.getNewValue();
+        if (strTipo.equals("1") || strTipo.equals("-1")) {
+            cargarDetTablaInfXIdComp();
+        } else {
+            cargarInfXCompXTipo();
         }
 
     }
@@ -649,6 +667,7 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
                 lstTablaInformes.clear();
                 proIdSel = 9;
                 cargarCompProc();
+                cargarInfXCompXTipo();
                 cargarSectoradm();
                 break;
             case 6:
@@ -1041,6 +1060,20 @@ public class ReportesProcesosJSFBean extends BaseJSFBean implements Serializable
      */
     public void setIntCuentaPD(Integer intCuentaPD) {
         this.intCuentaPD = intCuentaPD;
+    }
+
+    /**
+     * @return the strTipo
+     */
+    public String getStrTipo() {
+        return strTipo;
+    }
+
+    /**
+     * @param strTipo the strTipo to set
+     */
+    public void setStrTipo(String strTipo) {
+        this.strTipo = strTipo;
     }
 
 }

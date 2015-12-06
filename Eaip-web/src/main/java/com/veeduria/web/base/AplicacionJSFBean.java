@@ -44,8 +44,9 @@ public class AplicacionJSFBean implements Serializable {
 
     }
 
-   
-
+    /**
+     *
+     */
     @PostConstruct
     public void init() {
 
