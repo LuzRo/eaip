@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 @Entity
 @Table(name = "ptc_puntoscontrolxprocesoxfunc")

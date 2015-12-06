@@ -9,7 +9,7 @@ import com.veeduria.web.cargaarchivo.ICargaArchivo;
 
 /**
  *
- * @author fercris
+ * @author luz
  */
 public class CargaContratistas implements ICargaArchivo<Object>{
 

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSessionListener;
 
 /**
  *
- * @author con1ead
+ * @author luz
  */
 public class LimpiarSession implements HttpSessionListener {
 

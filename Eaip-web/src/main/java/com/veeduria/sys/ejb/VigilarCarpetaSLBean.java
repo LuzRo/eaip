@@ -8,20 +8,14 @@ package com.veeduria.sys.ejb;
 import com.veeduria.web.base.AplicacionJSFBean;
 import com.veeduria.web.cargaarchivo.aut.predis.CargaPredisPlano;
 import com.veeduria.web.cargaarchivo.aut.th.CargaPlanta;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardWatchEventKinds;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Future;
@@ -35,14 +29,10 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 
 /**
  *
- * @author fercris
+ * @author luz
  */
 @Stateless
 @LocalBean

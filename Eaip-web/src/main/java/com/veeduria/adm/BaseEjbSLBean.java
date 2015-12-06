@@ -15,7 +15,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author fercris
+ * @author luz
  */
 public abstract class BaseEjbSLBean {
 

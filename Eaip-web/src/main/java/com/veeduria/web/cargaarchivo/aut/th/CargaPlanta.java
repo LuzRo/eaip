@@ -6,17 +6,11 @@
 package com.veeduria.web.cargaarchivo.aut.th;
 
 import com.veeduria.sys.ejb.VigilarCarpetaSLBean;
-import com.veeduria.web.cargaarchivo.BaseCargaArchivo;
 import com.veeduria.web.cargaarchivo.BaseCargaMasiva;
 import com.veeduria.web.cargaarchivo.ICargaArchivo;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -28,7 +22,7 @@ import org.apache.poi.ss.usermodel.Row;
 
 /**
  *
- * @author fercris
+ * @author luz
  */
 public class CargaPlanta extends BaseCargaMasiva implements ICargaArchivo<Object> {
 

@@ -23,7 +23,7 @@ import java.util.Map;
 
 /**
  *
- * @author fercris
+ * @author luz
  */
 public class BaseCargaMasiva extends BaseEjbSLBean {
 

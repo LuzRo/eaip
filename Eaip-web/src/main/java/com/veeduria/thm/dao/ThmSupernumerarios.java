@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author con1ead
+ * @author luz
  */
 @Entity
 @Table(name = "thm_supernumerarios")

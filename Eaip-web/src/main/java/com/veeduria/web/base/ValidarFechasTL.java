@@ -13,7 +13,7 @@ import java.util.Date;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 public class ValidarFechasTL {
     private ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>(){

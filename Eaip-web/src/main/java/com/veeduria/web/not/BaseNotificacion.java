@@ -19,7 +19,7 @@ import javax.naming.NamingException;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 public class BaseNotificacion extends BaseJSFBean {
 

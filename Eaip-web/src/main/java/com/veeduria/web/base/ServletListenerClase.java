@@ -11,7 +11,7 @@ import javax.servlet.ServletContextListener;
 
 /**
  *
- * @author con1ead
+ * @author luz
  */
 public class ServletListenerClase implements ServletContextListener {
 

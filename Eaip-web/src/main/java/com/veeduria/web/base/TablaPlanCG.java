@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  *
- * @author fernando
+ * @author luz
  */
 public class TablaPlanCG extends TablaBaseFrm{
     private CntPlancuetagastos cntPCG = new CntPlancuetagastos();

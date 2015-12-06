@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author con1ead
+ * @author luz
  */
 @Entity
 @Table(name = "thm_rf_niveljerarquico")
