@@ -133,14 +133,14 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
         rutaCarpetaTrabajo = pRutaCarpetaTrabajo;
 
         try {
-            PGSimpleDataSource pgsds = new PGSimpleDataSource();
-            pgsds.setUser("veeduria");
-            pgsds.setPassword("veeduria");
-            pgsds.setServerName("localhost");
-            pgsds.setDatabaseName("eaip");
-            pgsds.setPortNumber(5432);
+//            PGSimpleDataSource pgsds = new PGSimpleDataSource();
+//            pgsds.setUser("veeduria");
+//            pgsds.setPassword("veeduria");
+//            pgsds.setServerName("localhost");
+//            pgsds.setDatabaseName("eaip");
+//            pgsds.setPortNumber(5432);
 
-            con = pgsds.getConnection();
+            con = jdbcVeeduria.getConnection();
             Files.walkFileTree(rutaCarpetaTrabajo, new SimpleFileVisitor<Path>() {
                 @Override
                 public FileVisitResult visitFile(Path file,
@@ -207,14 +207,14 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
         rutaCarpetaTrabajo = pRutaCarpetaTrabajo;
 
         try {
-            PGSimpleDataSource pgsds = new PGSimpleDataSource();
-            pgsds.setUser("veeduria");
-            pgsds.setPassword("veeduria");
-            pgsds.setServerName("localhost");
-            pgsds.setDatabaseName("eaip");
-            pgsds.setPortNumber(5432);
+//            PGSimpleDataSource pgsds = new PGSimpleDataSource();
+//            pgsds.setUser("veeduria");
+//            pgsds.setPassword("veeduria");
+//            pgsds.setServerName("localhost");
+//            pgsds.setDatabaseName("eaip");
+//            pgsds.setPortNumber(5432);
 
-            con = pgsds.getConnection();
+            con = jdbcVeeduria.getConnection();
             Files.walkFileTree(rutaCarpetaTrabajo, new SimpleFileVisitor<Path>() {
                 @Override
                 public FileVisitResult visitFile(Path file,
