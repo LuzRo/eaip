@@ -56,10 +56,14 @@ public class VigilarCarpetaSLBean {
 
             try {
                 Properties properties = new Properties();
-
                 properties.load(AplicacionJSFBean.class.getResourceAsStream("/configuracion/ConfiguracionGeneral.properties"));
+//                properties.entrySet().stream().forEach(e ->{
+//                  
+//                });
+
                 String rutaCargaMasiva = properties.getProperty("carpetaVigilada");
                 String rutaCarpetaTrabajo = properties.getProperty("carpetaTrabajoPredis");
+                String rutaCarpetaErrorPredis = properties.getProperty("carpetaErrorPredis");
                 String rutaEaip = rutaCargaMasiva.split(",")[0];
                 Path pathRutaEaip = Paths.get(System.getProperty("user.home"), rutaEaip);
                 if (!Files.exists(pathRutaEaip)) {
@@ -68,9 +72,11 @@ public class VigilarCarpetaSLBean {
                 if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")) {
                     rutaCargaMasiva = rutaCargaMasiva.replace(",", "\\");
                     rutaCarpetaTrabajo = rutaCarpetaTrabajo.replace(",", "\\");
+                    rutaCarpetaErrorPredis = rutaCarpetaErrorPredis.replace(",", "\\");
                 } else {
                     rutaCargaMasiva = rutaCargaMasiva.replace(",", "/");
                     rutaCarpetaTrabajo = rutaCarpetaTrabajo.replace(",", "/");
+                    rutaCarpetaErrorPredis = rutaCarpetaErrorPredis.replace(",", "/");
                 }
 
                 Path rutaCarpetaVigilada = Paths.get(System.getProperty("user.home"), rutaCargaMasiva);
@@ -81,29 +87,35 @@ public class VigilarCarpetaSLBean {
                 if (!Files.exists(pathRutaCarpetaTrabajo)) {
                     Files.createDirectory(pathRutaCarpetaTrabajo);
                 }
+                Path pathRutaCarpetaErrorPredis = Paths.get(System.getProperty("user.home"), rutaCarpetaErrorPredis);
+                if (!Files.exists(pathRutaCarpetaErrorPredis)) {
+                    Files.createDirectory(pathRutaCarpetaErrorPredis);
+                }
 
                 WatchService watcher;
-                watcher = pathRutaCarpetaTrabajo.getFileSystem().newWatchService();
-                pathRutaCarpetaTrabajo.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
+                watcher = rutaCarpetaVigilada.getFileSystem().newWatchService();
+                rutaCarpetaVigilada.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
 
                 WatchKey watckKey = watcher.take();
 
                 List<WatchEvent< ?>> events = watckKey.pollEvents();
                 for (WatchEvent<?> event : events) {
                     System.out.println("Archivo creado '" + event.context().toString());
-                    System.out.println("Ruta completa: " + pathRutaCarpetaTrabajo.toString() + "/" + event.context().toString());
+                    System.out.println("Ruta completa: " + rutaCarpetaVigilada.toString() + "/" + event.context().toString());
                     String[] arrStrNombreArchivo = event.context().toString().split("_", -1);
                     if (event.context().toString().endsWith(".xls")) {
 
                         cargaPlanta.cargarArchivoEmpleados(Paths.get(rutaCarpetaVigilada.toString(), event.context().toString()));
+                        
                     }
                     if (event.context().toString().endsWith(".zip")) {
 
                         if (arrStrNombreArchivo.length == 3) {
-
-                            Path rutaZip = Paths.get(pathRutaCarpetaTrabajo.toString(), event.context().toString());
+                            cargaPredisPlano.setCarpetaErrorPredis(rutaCarpetaErrorPredis);
+                            Path rutaZip = Paths.get(rutaCarpetaVigilada.toString(), event.context().toString());
 
                             cargaPredisPlano.unzip(rutaZip.toString(), pathRutaCarpetaTrabajo.toString());
+                            Files.deleteIfExists(rutaZip);
 
                             switch (arrStrNombreArchivo[1]) {
                                 case "gastos":

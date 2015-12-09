@@ -16,8 +16,11 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -60,6 +63,12 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
     private Connection con;
     String encabezado;
     private List<String> lstFilasArchivo;
+    private String carpetaErrorPredis;
+
+    public void setCarpetaErrorPredis(String carpetaErrorPredis) {
+        this.carpetaErrorPredis = carpetaErrorPredis;
+    }
+
     StringBuilder strBSql = new StringBuilder();
 
     public void iniciarInsertStringIngresos() {
@@ -136,8 +145,9 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
                 @Override
                 public FileVisitResult visitFile(Path file,
                         BasicFileAttributes attrs) throws IOException {
-//
-                    procesarArchivoGastos(file);
+                    if (file.toString().toUpperCase().endsWith(".TXT")) {
+                        procesarArchivoGastos(file);
+                    }
 
                     return FileVisitResult.CONTINUE;
                 }
@@ -177,8 +187,18 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
                 return FileVisitResult.CONTINUE;
             }
 
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                if (exc == null) {
+                    Files.delete(dir);
+                    return FileVisitResult.CONTINUE;
+                } else {
+                    // directory iteration failed; propagate exception
+                    throw exc;
+                }
+            }
+
         });
-       
 
     }
 
@@ -199,8 +219,9 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
                 @Override
                 public FileVisitResult visitFile(Path file,
                         BasicFileAttributes attrs) throws IOException {
-//
-                    procesarArchivoIngresos(file);
+                    if (file.toString().toUpperCase().endsWith(".TXT")) {
+                        procesarArchivoIngresos(file);
+                    }
 
                     return FileVisitResult.CONTINUE;
                 }
@@ -248,6 +269,27 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
     public void procesarArchivoGastos(Path pArchivo) {
 
         try {
+
+            StringBuilder strBSqlValidarExiste = new StringBuilder("SELECT count(lgreg_id) FROM sys_registrocarga WHERE lgreg_nomarchivocarga = '");
+            strBSqlValidarExiste.append(pArchivo.getFileName().toString().replace(" ", ""));
+            strBSqlValidarExiste.append("'");
+            Statement smtVA = con.createStatement();
+
+            ResultSet rsVA = smtVA.executeQuery(strBSqlValidarExiste.toString());
+            Long cantArch = -1L;
+            while (rsVA.next()) {
+                cantArch = rsVA.getLong(1);
+            }
+
+            if (cantArch > 0L) {
+                try {
+                    Files.copy(pArchivo, Paths.get(System.getProperty("user.home"), carpetaErrorPredis, pArchivo.getFileName().toString() + "_existe"), StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException ex1) {
+                    Logger.getLogger(CargaPredisPlano.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                return;
+            }
+
             lstFilasArchivo = Files.readAllLines(pArchivo, Charset.forName("ISO8859-1"));
             encabezado = lstFilasArchivo.get(0);
 
@@ -280,7 +322,7 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
                             + "            lgreg_id,   lgreg_fechacarga, \n"
                             + "            frn_id, lgreg_estado, lgreg_mensajecarga, ent_id, lgreg_periodo, \n"
                             + "            ses_id,  lgreg_tipomensaje, lgreg_nomarchivocarga, \n"
-                            + "            lgreg_idmsjcarga) VALUES ");
+                            + "            lgreg_idmsjcarga, lgreg_nomarchivo , lgreg_rutaarchivo ) VALUES ");
 
                     strBSqlSysRC.append("(");
                     strBSqlSysRC.append(lgregId);
@@ -301,61 +343,72 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
                     strBSqlSysRC.append(",'");
                     strBSqlSysRC.append("INFO");
                     strBSqlSysRC.append("','");
-                    strBSqlSysRC.append(pArchivo.toString());
+                    strBSqlSysRC.append(pArchivo.getFileName().toString().replace(" ", ""));
                     strBSqlSysRC.append("',");
                     strBSqlSysRC.append(1);
-                    strBSqlSysRC.append(")");
+                    strBSqlSysRC.append(",'");
+                    strBSqlSysRC.append("GASTOS - PRESUPUESTO");
+                    strBSqlSysRC.append("','");
+                    strBSqlSysRC.append(pArchivo.getParent().toString());
+                    strBSqlSysRC.append("/");
+                    strBSqlSysRC.append(pArchivo.toString().replace(" ", ""));
+                    strBSqlSysRC.append("')");
 
                     smt.executeUpdate(strBSqlSysRC.toString());
 
-                    strBSql.delete(0, strBSql.length());
+                    strBSqlValidarExiste.delete(0, strBSqlValidarExiste.length());
 
-                    strBSql.append(" INSERT INTO pre_cmgasto(");
-                    strBSql.append(" cgas_codcuenta, cgas_nomcuenta, cgas_apropinicial, cgas_modificacion, ");
-                    strBSql.append(" cgas_apropvigente, cgas_suspension, cgas_apropdisponible, cgas_compmes,  ");
-                    strBSql.append(" cgas_compacumulados, cgas_porejecptal, cgas_autogiromes, cgas_autogiroacum, ");
-                    strBSql.append(" cgas_porejecautogiro, lgreg_id) VALUES");
+                    strBSqlValidarExiste.append(" INSERT INTO pre_cmgasto(");
+                    strBSqlValidarExiste.append(" cgas_codcuenta, cgas_nomcuenta, cgas_apropinicial, cgas_modificacion, ");
+                    strBSqlValidarExiste.append(" cgas_apropvigente, cgas_suspension, cgas_apropdisponible, cgas_compmes,  ");
+                    strBSqlValidarExiste.append(" cgas_compacumulados, cgas_porejecptal, cgas_autogiromes, cgas_autogiroacum, ");
+                    strBSqlValidarExiste.append(" cgas_porejecautogiro, lgreg_id) VALUES");
                     for (String dato : lstFilasArchivo) {
                         if (lstFilasArchivo.indexOf(dato) != 0) {
-                            strBSql.append("('");
-                            strBSql.append(dato.substring(0, 88).trim());
-                            strBSql.append("','");
-                            strBSql.append(dato.substring(88, 338).trim());
-                            strBSql.append("',");
-                            strBSql.append(dato.substring(338, 370).trim().replace(",", ""));
-                            strBSql.append(",");
-                            strBSql.append(dato.substring(370, 402).trim().replace(",", ""));
-                            strBSql.append(",");
-                            strBSql.append(dato.substring(402, 434).trim().replace(",", ""));
-                            strBSql.append(",");
-                            strBSql.append(dato.substring(434, 466).trim().replace(",", ""));
-                            strBSql.append(",");
-                            strBSql.append(dato.substring(466, 498).trim().replace(",", ""));
-                            strBSql.append(",");
-                            strBSql.append(dato.substring(498, 530).trim().replace(",", ""));
-                            strBSql.append(",");
-                            strBSql.append(dato.substring(530, 562).trim().replace(",", ""));
-                            strBSql.append(",");
-                            strBSql.append(dato.substring(562, 574).trim().replace(",", ""));
-                            strBSql.append(",");
-                            strBSql.append(dato.substring(574, 606).trim().replace(",", ""));
-                            strBSql.append(",");
-                            strBSql.append(dato.substring(606, 638).trim().replace(",", ""));
-                            strBSql.append(",");
-                            strBSql.append(dato.substring(638, 650).trim().replace(",", ""));
-                            strBSql.append(",");
-                            strBSql.append(lgregId);
-                            strBSql.append("),");
+                            strBSqlValidarExiste.append("('");
+                            strBSqlValidarExiste.append(dato.substring(0, 88).trim());
+                            strBSqlValidarExiste.append("','");
+                            strBSqlValidarExiste.append(dato.substring(88, 338).trim());
+                            strBSqlValidarExiste.append("',");
+                            strBSqlValidarExiste.append(dato.substring(338, 370).trim().replace(",", ""));
+                            strBSqlValidarExiste.append(",");
+                            strBSqlValidarExiste.append(dato.substring(370, 402).trim().replace(",", ""));
+                            strBSqlValidarExiste.append(",");
+                            strBSqlValidarExiste.append(dato.substring(402, 434).trim().replace(",", ""));
+                            strBSqlValidarExiste.append(",");
+                            strBSqlValidarExiste.append(dato.substring(434, 466).trim().replace(",", ""));
+                            strBSqlValidarExiste.append(",");
+                            strBSqlValidarExiste.append(dato.substring(466, 498).trim().replace(",", ""));
+                            strBSqlValidarExiste.append(",");
+                            strBSqlValidarExiste.append(dato.substring(498, 530).trim().replace(",", ""));
+                            strBSqlValidarExiste.append(",");
+                            strBSqlValidarExiste.append(dato.substring(530, 562).trim().replace(",", ""));
+                            strBSqlValidarExiste.append(",");
+                            strBSqlValidarExiste.append(dato.substring(562, 574).trim().replace(",", ""));
+                            strBSqlValidarExiste.append(",");
+                            strBSqlValidarExiste.append(dato.substring(574, 606).trim().replace(",", ""));
+                            strBSqlValidarExiste.append(",");
+                            strBSqlValidarExiste.append(dato.substring(606, 638).trim().replace(",", ""));
+                            strBSqlValidarExiste.append(",");
+                            strBSqlValidarExiste.append(dato.substring(638, 650).trim().replace(",", ""));
+                            strBSqlValidarExiste.append(",");
+                            strBSqlValidarExiste.append(lgregId);
+                            strBSqlValidarExiste.append("),");
 
                         }
                     }
                     // String strBSqlInsert = em.g
-                    strBSql.delete(strBSql.length() - 1, strBSql.length());
+                    strBSqlValidarExiste.delete(strBSqlValidarExiste.length() - 1, strBSqlValidarExiste.length());
 
-                    smt.executeUpdate(strBSql.toString());
+                    smt.executeUpdate(strBSqlValidarExiste.toString());
                 }
             }
         } catch (SQLException | IOException ex) {
+            try {
+                Files.copy(pArchivo, Paths.get(System.getProperty("user.home"),carpetaErrorPredis, pArchivo.getFileName().toString()), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException ex1) {
+                Logger.getLogger(CargaPredisPlano.class.getName()).log(Level.SEVERE, null, ex1);
+            }
             Logger.getLogger(CargaPredisPlano.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -455,7 +508,7 @@ public class CargaPredisPlano extends BaseCargaMasiva implements ICargaArchivo<O
                             strBSql.append(",");
                             strBSql.append(dato.substring(594, 626).trim().replace(",", ""));
                             strBSql.append(",");
-                            strBSql.append(dato.substring(626, 658).trim().replace(",", ""));                          
+                            strBSql.append(dato.substring(626, 658).trim().replace(",", ""));
                             strBSql.append(",");
                             strBSql.append(lgregId);
                             strBSql.append("),");

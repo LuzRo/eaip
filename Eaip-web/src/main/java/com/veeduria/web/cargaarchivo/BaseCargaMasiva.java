@@ -57,7 +57,7 @@ public class BaseCargaMasiva extends BaseEjbSLBean {
         final Path destDir = Paths.get(destDirname);
         //Si la carpeta de destino no existe, crearla
         if (Files.notExists(destDir)) {
-            System.out.println(destDir + " does not exist. Creating...");
+//            System.out.println(destDir + " does not exist. Creating...");
             Files.createDirectories(destDir);
         }
 
@@ -71,7 +71,7 @@ public class BaseCargaMasiva extends BaseEjbSLBean {
                         BasicFileAttributes attrs) throws IOException {
                     final Path destFile = Paths.get(destDir.toString(),
                             file.toString());
-                    System.out.printf("Extrayendo %s a %s\n", file, destFile);
+//                    System.out.printf("Extrayendo %s a %s\n", file, destFile);
                     Files.copy(file, destFile, StandardCopyOption.REPLACE_EXISTING);
                     return FileVisitResult.CONTINUE;
                 }
@@ -82,7 +82,7 @@ public class BaseCargaMasiva extends BaseEjbSLBean {
                     final Path dirToCreate = Paths.get(destDir.toString(),
                             dir.toString());
                     if (Files.notExists(dirToCreate)) {
-                        System.out.printf("Creando carpeta %s\n", dirToCreate);
+//                        System.out.printf("Creando carpeta %s\n", dirToCreate);
                         Files.createDirectory(dirToCreate);
                     }
                     return FileVisitResult.CONTINUE;
